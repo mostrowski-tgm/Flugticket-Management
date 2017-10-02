@@ -1,0 +1,30 @@
+package mvu;
+
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+public class DatabaseWindow {
+	private static JFrame frame = new JFrame("Titel1");
+	private static JPanel pane = new JPanel();
+	
+	public static void createGUI(){
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(500, 500);
+		
+		pane.setLayout(new GridBagLayout());
+		
+		
+		
+		frame.add(pane);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
+	
+}

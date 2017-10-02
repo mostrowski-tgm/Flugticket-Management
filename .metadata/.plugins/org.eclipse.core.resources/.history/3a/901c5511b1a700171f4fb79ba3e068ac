@@ -61,13 +61,11 @@ public class FlightWindow {
 		pane.add(possibleflightsBox, c);
 		
 		frame.add(pane);
-		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 	
 	public static void main(String[] args){
-	DatabaseWindow dw = new DatabaseWindow();
-	//createGUI();
+	createGUI();
 	}
 }

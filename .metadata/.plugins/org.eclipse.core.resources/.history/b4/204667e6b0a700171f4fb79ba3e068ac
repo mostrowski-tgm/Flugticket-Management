@@ -1,0 +1,57 @@
+package mvu;
+
+
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class DatabaseWindow {
+	private static JFrame frame = new JFrame("Titel1");
+	private static JPanel pane = new JPanel();
+	static JLabel hostname = new JLabel("Hostname");
+	static JLabel port = new JLabel("Hostname");
+	static JLabel user = new JLabel("Hostname");
+	static JLabel passwort = new JLabel("Hostname");
+	static JTextField hostnameInput = new JTextField();
+	static JTextField portInput = new JTextField();
+	static JTextField userInput = new JTextField();
+	static JTextField passwortInput = new JTextField();
+	
+	public static void DatabaseGUI(){
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(500, 500);
+		
+		pane.setLayout(new GridBagLayout());
+		
+		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(5,5,5,5);
+		
+		c.gridx = 0;
+		c.gridy = 0;
+		pane.add(hostname,c);
+		
+		c.gridx = 1;
+		c.gridy = 0;
+		pane.add(port,c);
+		
+		c.gridx = 2;
+		c.gridy = 0;
+		pane.add(user,c);
+		
+		c.gridx = 3;
+		c.gridy = 0;
+		pane.add(passwort,c);
+		
+		frame.add(pane);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
+	
+}

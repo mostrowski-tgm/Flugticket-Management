@@ -14,18 +14,15 @@ public class FlightWindow {
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(500, 500);
+		frame.setResizable(false);
 		
 		pane.setLayout(new GridBagLayout());
 		
 		GridBagConstraints c = new GridBagConstraints();
 		c.insets = new Insets(5,5,5,5);
-		
-		jl1.setFont(jl1.getFont().deriveFont(32.0f));
-		jl2.setFont(jl2.getFont().deriveFont(32.0f));
-		
+		c.fill = GridBagConstraints.VERTICAL;
 		c.gridx = 0;
 		c.gridy = 0;
-		
 		pane.add(jl1,c);
 		
 		c.gridx = 1;
@@ -49,13 +46,11 @@ public class FlightWindow {
 		//TODO Platzalter für mögliche Flüge
 		c.gridx = 0;
 		c.gridy = 2;
-		c.gridwidth = 2;
 		JLabel possibleflights = new JLabel("Möglichen Flüge:");
-		possibleflights.setFont(possibleflights.getFont().deriveFont(32.0f));
 		pane.add(possibleflights, c);
 		
-		c.gridx = 0;
-		c.gridy = 3;
+		c.gridx = 1;
+		c.gridy = 2;
 		String possflight[] = {"item01","item02"};
 		JComboBox<String> possibleflightsBox = new JComboBox<String>(possflight);
 		pane.add(possibleflightsBox, c);

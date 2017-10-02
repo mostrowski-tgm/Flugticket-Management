@@ -49,9 +49,7 @@ public class FlightWindow {
 		//TODO Platzalter für mögliche Flüge
 		c.gridx = 0;
 		c.gridy = 2;
-		c.gridwidth = 2;
 		JLabel possibleflights = new JLabel("Möglichen Flüge:");
-		possibleflights.setFont(possibleflights.getFont().deriveFont(32.0f));
 		pane.add(possibleflights, c);
 		
 		c.gridx = 0;

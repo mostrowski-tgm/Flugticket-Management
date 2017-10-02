@@ -1,0 +1,23 @@
+package mvu;
+
+import java.awt.*;
+import javax.swing.*;
+
+public class FlightWindow {
+	JPanel panel;
+	JFrame frame;
+	
+	public  void createGUI(){
+		frame = new JFrame("Grid Layout");
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(500, 500);
+		
+		panel = new JPanel(new GridBagLayout());
+		
+	}
+	
+	public  void main(String[] args){
+		
+	}
+}

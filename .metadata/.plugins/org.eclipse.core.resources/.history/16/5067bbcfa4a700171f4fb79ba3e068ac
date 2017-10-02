@@ -1,0 +1,28 @@
+package mvu;
+
+import java.awt.*;
+import javax.swing.*;
+
+public class FlightWindow {
+	private static JFrame frame = new JFrame();
+	private static JPanel panel = new JPanel();
+	private static JLabel jl1 = new JLabel("Hallo1");
+	public static void createGUI(){
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(500, 500);
+		frame.setResizable(false);
+		
+		panel.setLayout(new GridBagLayout());
+		
+		GridBagConstraints c = new GridBagConstraints();
+		
+		c.gridx = 0;
+		c.gridy = 0;
+		panel.add(jl1,c);
+	}
+	
+	public static void main(String[] args){
+	
+	}
+}

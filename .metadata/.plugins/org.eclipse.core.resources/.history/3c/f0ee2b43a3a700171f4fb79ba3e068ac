@@ -1,0 +1,14 @@
+package mvu;
+
+import javax.swing.JFrame;
+
+public class FlightWindow {
+
+	public void createGUI(){
+		JFrame frame = new JFrame("Grid Layout");
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(500, 500);
+	}
+	
+}

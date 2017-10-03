@@ -60,37 +60,13 @@ public class DatabaseConnection {
 			while(rs.next()){
 				ar.add(rs.getString(1));
 			}
-			/**
-			 * Testzwecke
-			 * for(int i = 0; i<ar.size();i++){
+			for(int i = 0; i<ar.size();i++){
 				System.out.println(ar.get(i));
 			}
-			 */
-			
 			
 			// aufräumen
 			rs.close(); st.close(); connection.close();
 			//return countriesArr;
-			return ar;
-		}catch(SQLException e){
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public ArrayList<String> getAirportsCountry(String country){
-		try{
-			connection = ds.getConnection();
-			Statement st = connection.createStatement();
-			ResultSet rs = st.executeQuery("SELECT airports.name FROM airports,countries WHERE airports.country = countries.code AND countries.name = '"+country+"';");
-			
-			ArrayList<String> ar = new ArrayList<String>();
-			while(rs.next()){
-				ar.add(rs.getString(1));
-			}
-			
-			//aufräumen
-			rs.close(); st.close(); connection.close();
 			return ar;
 		}catch(SQLException e){
 			e.printStackTrace();

@@ -11,9 +11,7 @@ public class FlightWindow {
 	private static JLabel abflughafen = new JLabel("Abflughafen");
 	private static JLabel zielflughafen = new JLabel("Zielflughafen");
 	
-	/**
-	 * Erstellt das GUI, hat ein Gridlayout
-	 */
+	
 	public static void createGUI(){
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(500, 500);
@@ -104,5 +102,6 @@ public class FlightWindow {
 	
 	public static void main(String[] args){
 		DatabaseWindow dw = new DatabaseWindow();
+		//createGUI();
 	}
 }

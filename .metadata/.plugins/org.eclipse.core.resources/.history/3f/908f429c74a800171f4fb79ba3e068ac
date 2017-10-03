@@ -62,7 +62,6 @@ public DatabaseWindow (){
 	c.gridx = 4;
 	c.gridy = 0;
 	pane.add(databasename,c);
-	
 	//Hostname, für Lokal ist es "localhost"
 	c.gridx = 0;
 	c.gridy = 1;
@@ -133,11 +132,10 @@ public void actionPerformed(ActionEvent arg0) {
 	}
 	//TODO Sysout löschen
 	frame.dispose();
-	//TODO createGUI zum letzten Command verschieben
-	//FlightWindow.createGUI();
+	System.out.println(getProperties());
 	DatabaseConnection dc = new DatabaseConnection(getProperties().getProperty("hostname"),getProperties().getProperty("port"),getProperties().getProperty("user"),getProperties().getProperty("password"),getProperties().getProperty("databasename"));
 	dc.getAllCountries();
-	dc.getAirportsCountry("Austria");
+	FlightWindow.createGUI();
 	}
 
 public static Properties getProperties(){

@@ -78,7 +78,7 @@ public class DatabaseConnection {
 		return null;
 	}
 	
-	public ArrayList<String> getAirportsCountry(String country){
+	public ArrayList<String> getAllAirports(String country){
 		try{
 			connection = ds.getConnection();
 			Statement st = connection.createStatement();
@@ -87,6 +87,9 @@ public class DatabaseConnection {
 			ArrayList<String> ar = new ArrayList<String>();
 			while(rs.next()){
 				ar.add(rs.getString(1));
+			}
+			for(int i = 0; i<ar.size();i++){
+				System.out.println(ar.get(i));
 			}
 			
 			//aufräumen

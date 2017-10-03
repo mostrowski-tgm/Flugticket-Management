@@ -78,15 +78,18 @@ public class DatabaseConnection {
 		return null;
 	}
 	
-	public ArrayList<String> getAirportsCountry(String country){
+	public ArrayList<String> getAllAirports(String country){
 		try{
 			connection = ds.getConnection();
 			Statement st = connection.createStatement();
-			ResultSet rs = st.executeQuery("SELECT airports.name FROM airports,countries WHERE airports.country = countries.code AND countries.name = '"+country+"';");
+			ResultSet rs = st.executeQuery("SELECT name FROM airports WHERE airports.country = countries.code AND countries.name = '"+country+"';");
 			
 			ArrayList<String> ar = new ArrayList<String>();
 			while(rs.next()){
 				ar.add(rs.getString(1));
+			}
+			for(int i = 0; i<ar.size();i++){
+				System.out.println(ar.get(i));
 			}
 			
 			//aufräumen

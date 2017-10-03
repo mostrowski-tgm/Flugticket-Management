@@ -11,9 +11,7 @@ public class FlightWindow {
 	private static JLabel abflughafen = new JLabel("Abflughafen");
 	private static JLabel zielflughafen = new JLabel("Zielflughafen");
 	
-	/**
-	 * Erstellt das GUI, hat ein Gridlayout
-	 */
+	
 	public static void createGUI(){
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(500, 500);
@@ -50,10 +48,6 @@ public class FlightWindow {
 		JComboBox<String> countrieSelect2 = new JComboBox<String>(countrieList2);
 		pane.add(countrieSelect2,c);
 		
-		
-		abflughafen.setFont(abflughafen.getFont().deriveFont(32.0f));
-		zielflughafen.setFont(zielflughafen.getFont().deriveFont(32.0f));
-		
 		c.gridx = 0;
 		c.gridy = 2;
 		c.weightx=1.;
@@ -76,9 +70,9 @@ public class FlightWindow {
 		c.gridy = 3;
 		c.weightx=1.;
 		//TODO Soll dynamisch auslesen aus der DB können
-		String airportList2[] = {"item01","item02"};
-		JComboBox<String> airportSelect2 = new JComboBox<String>(airportList2);
-		pane.add(airportSelect2,c);
+		String airportList1[] = {"item01","item02"};
+		JComboBox<String> airportSelect1 = new JComboBox<String>(airportList1);
+		pane.add(airportSelect1,c);
 		
 		//TODO Platzalter für mögliche Flüge
 		c.gridx = 0;
@@ -103,6 +97,7 @@ public class FlightWindow {
 	}
 	
 	public static void main(String[] args){
-		DatabaseWindow dw = new DatabaseWindow();
+	DatabaseWindow dw = new DatabaseWindow();
+	//createGUI();
 	}
 }

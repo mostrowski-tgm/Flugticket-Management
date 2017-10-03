@@ -78,7 +78,7 @@ public class DatabaseConnection {
 		return null;
 	}
 	
-	public ArrayList<String> getAirportsCountry(String country){
+	public ArrayList<String> getAllAirports(String country){
 		try{
 			connection = ds.getConnection();
 			Statement st = connection.createStatement();

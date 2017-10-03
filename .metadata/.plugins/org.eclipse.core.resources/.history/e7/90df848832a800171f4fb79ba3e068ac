@@ -31,7 +31,7 @@ public class DatabaseWindow implements ActionListener{
 
 	JButton submit = new JButton("Submit");
  
-	private static Properties properties;
+	private Properties properties;
  //TODO Fehler bei der Eingabe beheben
 public DatabaseWindow (){
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -116,14 +116,10 @@ public void actionPerformed(ActionEvent arg0) {
 		properties.setProperty("password", passwordInput.getText());
 		properties.setProperty("hostname", hostnameInput.getText());
 	}
-	//TODO Sysout löschen
 	System.out.println(getProperties());
-	frame.dispose();
-	System.out.println(getProperties());
-	FlightWindow.createGUI();
 	}
 
-public static Properties getProperties(){
+public Properties getProperties(){
 	return properties;
 }
 

@@ -13,7 +13,7 @@ public class DatabaseConnection {
 	private static String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
 	private static String DATABASE_URL; //"jdbc:mysql://localhost:3306/database_name"
 	private static String HOSTNAME;
-	private static int PORT;
+	private static String PORT;
 	private static String USERNAME;
 	private static String PASSWORD;
 	
@@ -22,7 +22,7 @@ public class DatabaseConnection {
 		DatabaseWindow dbw = new DatabaseWindow();
 		DATABASE_URL = "jdbc:mysql://"+dbw.getProperties().getProperty("hostname")+":"+dbw.getProperties().getProperty("port")+"/flightdata";
 		HOSTNAME = dbw.getProperties().getProperty("hostname");
-		PORT = Integer.parseInt(dbw.getProperties().getProperty("port"));
+		PORT = dbw.getProperties().getProperty("port");
 		USERNAME = dbw.getProperties().getProperty("user");
 		PASSWORD = dbw.getProperties().getProperty("password");
 	}

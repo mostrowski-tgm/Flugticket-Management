@@ -116,11 +116,7 @@ public void actionPerformed(ActionEvent arg0) {
 		properties.setProperty("password", passwordInput.getText());
 		properties.setProperty("hostname", hostnameInput.getText());
 	}
-	//TODO Sysout löschen
 	System.out.println(getProperties());
-	frame.dispose();
-	System.out.println(getProperties());
-	FlightWindow.createGUI();
 	}
 
 public static Properties getProperties(){

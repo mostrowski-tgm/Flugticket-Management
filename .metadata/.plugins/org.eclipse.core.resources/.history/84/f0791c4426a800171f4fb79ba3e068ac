@@ -67,6 +67,6 @@ public class FlightWindow {
 	
 	public static void main(String[] args){
 	DatabaseWindow dw = new DatabaseWindow();
-	//createGUI();
+	createGUI();
 	}
 }

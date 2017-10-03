@@ -67,6 +67,7 @@ public class FlightWindow {
 	
 	public static void main(String[] args){
 	DatabaseWindow dw = new DatabaseWindow();
+	System.out.println(dw.getProperties());
 	//createGUI();
 	}
 }

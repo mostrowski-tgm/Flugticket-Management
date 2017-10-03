@@ -9,12 +9,12 @@ import java.awt.event.ActionListener;
 import java.util.Properties;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import java.sql.*;
 
 public class DatabaseWindow implements ActionListener{
 	private  JFrame frame = new JFrame("DB Server");
@@ -57,28 +57,24 @@ public DatabaseWindow (){
 	c.gridy = 0;
 	pane.add(password,c);
 	
-	//Hostname, für Lokal ist es "localhost"
 	c.gridx = 0;
 	c.gridy = 1;
 	c.weightx=1.;
     c.fill=GridBagConstraints.HORIZONTAL;
 	pane.add(hostnameInput,c);
 	
-	//Port, local => "3306"
 	c.gridx = 1;
 	c.gridy = 1;
 	c.weightx=1.;
     c.fill=GridBagConstraints.HORIZONTAL;
 	pane.add(portInput,c);
 	
-	//User, standartmässig "root"
 	c.gridx = 2;
 	c.gridy = 1;
 	c.weightx=1.;
     c.fill=GridBagConstraints.HORIZONTAL;
 	pane.add(userInput,c);
 	
-	//Pw, passwort um in die MySQL CMD zu kommen
 	c.gridx = 3;
 	c.gridy = 1;
 	c.weightx=1.;
@@ -101,6 +97,7 @@ public DatabaseWindow (){
 @Override
 public void actionPerformed(ActionEvent arg0) {
 	properties = new Properties();
+	//TODO Ruft Database mit den eingebenen Werten ein
 	boolean readyToSubmit = true;
 	if(portInput.getText() != null){
 		if(!portInput.getText().matches("[0-9]*")) {
@@ -111,17 +108,7 @@ public void actionPerformed(ActionEvent arg0) {
         	properties.setProperty("port", portInput.getText());
         }
 	}
-	if(readyToSubmit){
-		properties.setProperty("user", userInput.getText());
-		properties.setProperty("password", passwordInput.getText());
-		properties.setProperty("hostname", hostnameInput.getText());
-	}
-	System.out.println(getProperties());
-	}
-
-public Properties getProperties(){
-	return properties;
+	
+	//if(readyToSubmit)submitDataToDatabase(hostnameInput.getText(),portInput.getText(),userInput.getText(), passwordInput.getText());
 }
-
-
 }

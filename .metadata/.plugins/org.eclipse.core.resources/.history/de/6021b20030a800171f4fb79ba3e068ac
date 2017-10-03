@@ -1,0 +1,14 @@
+package mvu;
+
+import java.sql.Connection;
+
+public class DatabaseConnection {
+
+	private Connection connection;
+	public Connection connect(){
+		if (connection == null){
+			Class.forName(DATABASE_DRIVER);
+		}
+		return connection;
+	}
+}

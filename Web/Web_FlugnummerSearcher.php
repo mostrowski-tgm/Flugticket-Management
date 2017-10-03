@@ -26,11 +26,20 @@
 							</h1>							
 						</div>
 						<div class="panel-body">
-							<form action="FlugData.php" method="get">
-							<input type="text" placeholder=" Insert Flightnummer" name="flugnr">
-							<button type="submit">
-								Flugnummer suchen
-							</button>
+							<form action="Web_FlugData.php" method="post">
+								<div class="row">
+									<div class="col-md-6 offset-md-3">
+										<input type="text" placeholder=" Insert Flightnummer" name="flugnr">
+									</div>
+								</div>
+								<br>
+								<div class="row">
+									<div class="col-md-6 offset-md-3">
+										<button type="submit">
+											Flugnummer suchen
+										</button>
+									</div>
+								</div> 
 							</form>
 						</div>
 					</div>

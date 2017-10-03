@@ -23,14 +23,16 @@ public class DatabaseWindow implements ActionListener{
 	JLabel port = new JLabel("Port");
 	JLabel user = new JLabel("User");
 	JLabel password = new JLabel("Password");
+	JLabel databasename = new JLabel("Databasename");
 	
 	JTextField hostnameInput = new JTextField();
 	JTextField portInput = new JTextField();
 	JTextField userInput = new JTextField();
 	JTextField passwordInput = new JTextField();
-
+	JTextField databasenameInput = new JTextField();
+	
 	JButton submit = new JButton("Submit");
- 
+
 	private static Properties properties;
  //TODO Fehler bei der Eingabe beheben
 public DatabaseWindow (){
@@ -57,6 +59,9 @@ public DatabaseWindow (){
 	c.gridy = 0;
 	pane.add(password,c);
 	
+	c.gridx = 4;
+	c.gridy = 0;
+	pane.add(databasename,c);
 	//Hostname, für Lokal ist es "localhost"
 	c.gridx = 0;
 	c.gridy = 1;
@@ -89,6 +94,12 @@ public DatabaseWindow (){
 	c.gridy = 1;
 	c.weightx=1.;
     c.fill=GridBagConstraints.HORIZONTAL;
+	pane.add(databasenameInput,c);
+	
+	c.gridx = 5;
+	c.gridy = 1;
+	c.weightx=1.;
+    c.fill=GridBagConstraints.HORIZONTAL;
 	pane.add(submit,c);
 	submit.addActionListener(this);
 	
@@ -111,15 +122,19 @@ public void actionPerformed(ActionEvent arg0) {
         	properties.setProperty("port", portInput.getText());
         }
 	}
+	if(hostnameInput.getText().equals("localhost")){
+		properties.setProperty("hostname", "127.0.0.1");
+	}
 	if(readyToSubmit){
 		properties.setProperty("user", userInput.getText());
 		properties.setProperty("password", passwordInput.getText());
-		properties.setProperty("hostname", hostnameInput.getText());
+		properties.setProperty("databasename", databasenameInput.getText());
 	}
 	//TODO Sysout löschen
-	System.out.println(getProperties());
 	frame.dispose();
 	System.out.println(getProperties());
+	DatabaseConnection dc = new DatabaseConnection(getProperties().getProperty("hostname"),getProperties().getProperty("port"),getProperties().getProperty("user"),getProperties().getProperty("password"),getProperties().getProperty("databasename"));
+	dc.getAllCountries();
 	FlightWindow.createGUI();
 	}
 

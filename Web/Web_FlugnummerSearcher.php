@@ -13,6 +13,23 @@
 
     </head>
     <body>
+	<?php
+	
+		/*
+		Die Werte der Datenbank werden in den Cookie gespeichert.
+		*/
+		$name = $_POST['username'];
+		$pass = $_POST['password'];
+		$ad = $_POST['adresse'];
+		$typ = $_POST['data'];
+						
+		setcookie("username", $name);
+		setcookie("password", $pass);
+		setcookie("adresse", $ad);
+		setcookie("typ", $typ);
+		
+	?>
+							
 	<br>
 		<div class="container">
 			<div class="row">

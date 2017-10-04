@@ -46,7 +46,7 @@
 								<br>
 								<div class="row">
 									<div class="col-md-6 offset-md-3">
-										<input type="text" placeholder=" Insert Databanktyp (mysqli)" name="data">
+										<input type="text" placeholder=" Insert Databanktyp (mysql)" name="data">
 									</div>
 								</div>
 								<br>

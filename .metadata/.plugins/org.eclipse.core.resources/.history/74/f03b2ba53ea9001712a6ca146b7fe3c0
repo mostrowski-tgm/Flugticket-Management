@@ -119,9 +119,15 @@ public class DatabaseConnection {
 		try{
 			connection = ds.getConnection();
 			Statement st = connection.createStatement();
-			ResultSet rs = st.executeQuery("SELECT airline,flightnr,departure_airport,departure_time,destination_airport,destination_time,planetype FROM flights INNER JOIN airports ON flights.departure_airport = airports.airportcode AND flights.departure_airport =  '"+depAirport+"' AND flights.destination_airport =  '"+destAirport+"';");
+			ResultSet rs = st.executeQuery("SELECT airline,flightnr,departure_airport,destination_time,departure_airport,destination_time,planetype FROM flights INNER JOIN airports ON flights.departure_airport = airports.airportcode AND flights.departure_airport =  '"+depAirport+"' AND flights.destination_airport =  '"+destAirport+"';");
 			
+			String[][] flightResult = null;
 			
+			for(int y = 0; rs.next();y++){
+				for(int x = 0; x<7;x++){
+					flightResult = ar.toArray(new String[y][x]);
+				}
+			}
 			
 			ArrayList<String[]> ar = new ArrayList<String[]>();
 			while(rs.next()){
@@ -129,17 +135,9 @@ public class DatabaseConnection {
 				ar.add(row);
 			}
 			
-			//String[][] flightResult = new String[ar.size()][7];
-			String[][] flightResult = null;
 			for(int y = 0; y<ar.size();y++){
 				for(int x = 0; x<7;x++){
-					flightResult = ar.toArray(new String[0][0]);
-				}
-			}
-			
-			for(int y = 0; y<ar.size();y++){
-				for(int x = 0; x<7;x++){
-					System.out.println(flightResult[y][x]);
+					flightResult = ar.toArray(new String[y][x]);
 				}
 			}
 			

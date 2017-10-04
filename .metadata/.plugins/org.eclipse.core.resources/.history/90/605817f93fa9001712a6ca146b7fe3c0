@@ -136,13 +136,7 @@ public class DatabaseConnection {
 					flightResult = ar.toArray(new String[0][0]);
 				}
 			}
-			
-			for(int y = 0; y<ar.size();y++){
-				for(int x = 0; x<7;x++){
-					System.out.println(flightResult[y][x]);
-				}
-			}
-			
+			System.out.println(flightResult);
 			//aufräumen
 			rs.close(); st.close(); connection.close();
 			return flightResult;

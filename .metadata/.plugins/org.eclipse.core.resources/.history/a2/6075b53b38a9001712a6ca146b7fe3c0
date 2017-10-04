@@ -15,20 +15,15 @@ public class FlightWindow implements ActionListener{
 	private static JLabel JZielflughafen = new JLabel("Zielflughafen");
 	
 	private static String countrieList1[];
-	private static String countrieList2[];
 	private static JComboBox<String> countrieSelect1;
+	private static String countrieList2[];
 	private static JComboBox<String> countrieSelect2;
 	private static String selctedCountrie1;
 	private static String selctedCountrie2;
-	
-	private static String[] airportAr1; 
-	private static String[] airportAr2;
+	private static String[] airportList1; 
+	private static String[] airportList2;
 	private static JComboBox<String> airportSelect1;
 	private static JComboBox<String> airportSelect2;
-	
-	private static String[] possflightAr;
-	private static JTable possibleflightsTable;
-	
 	private static DatabaseWindow dw;
 	private static DatabaseConnection dc;
 	/**
@@ -94,8 +89,7 @@ public class FlightWindow implements ActionListener{
 		c.weightx=1.;
 		
 		//Dropdown Liste für Flughaefen dynamisch erzeugt nachdem user Land ausgewählt hat
-		//airportList ist ein String Array von Flughaefen in einem Land
-		airportAr1 = null;
+		airportList1 = null;
 		airportSelect1 = new JComboBox<String>();
 		pane.add(airportSelect1,c);
 		
@@ -103,7 +97,7 @@ public class FlightWindow implements ActionListener{
 		c.gridy = 3;
 		c.weightx=1.;
 		
-		airportAr2 = null;
+		airportList2 = null;
 		airportSelect2 = new JComboBox<String>();
 		pane.add(airportSelect2,c);
 		
@@ -119,11 +113,9 @@ public class FlightWindow implements ActionListener{
 		c.gridx = 0;
 		c.gridy = 5;
 		c.weightx=1.0;
-		possflightAr = null;
-		possibleflightsTable = new JTable();
-	//	possibleflightsTable.setActionCommand("possibleFlights");
-	//	possibleflightsTable.addActionListener(this);
-		pane.add(possibleflightsTable, c);
+		String possflight[] = {"item01","item02"};
+		JComboBox<String> possibleflightsBox = new JComboBox<String>(possflight);
+		pane.add(possibleflightsBox, c);
 		
 		frame.add(pane);
 		frame.pack();
@@ -147,23 +139,20 @@ public class FlightWindow implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		dc.getFlights("CMA", "IZT");
 		if(e.getActionCommand().equals("countrySelect1")){
 			selctedCountrie1 = (String) countrieSelect1.getSelectedItem();
-			airportAr1 = dc.getAirportsCountry(selctedCountrie1);
+			airportList1 = dc.getAirportsCountry(selctedCountrie1);
 			airportSelect1.removeAllItems();
-			for(int i = 0; i<airportAr1.length;i++){
-				airportSelect1.addItem(airportAr1[i]);
+			for(int i = 0; i<airportList1.length;i++){
+				airportSelect1.addItem(airportList1[i]);
 			}
 		}else if(e.getActionCommand().equals("countrySelect2")){
 			selctedCountrie2 = (String) countrieSelect2.getSelectedItem();
-			airportAr2 = dc.getAirportsCountry(selctedCountrie2);
+			airportList2 = dc.getAirportsCountry(selctedCountrie2);
 			airportSelect2.removeAllItems();
-			for(int i = 0; i<airportAr2.length;i++){
-				airportSelect2.addItem(airportAr2[i]);
+			for(int i = 0; i<airportList2.length;i++){
+				airportSelect2.addItem(airportList2[i]);
 			}
-		}else if(e.getActionCommand().equals("possibleFlights")){
-			
 		}
 	}
 	

@@ -147,7 +147,6 @@ public class FlightWindow implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		dc.getFlights("CMA", "IZT");
 		if(e.getActionCommand().equals("countrySelect1")){
 			selctedCountrie1 = (String) countrieSelect1.getSelectedItem();
 			airportAr1 = dc.getAirportsCountry(selctedCountrie1);

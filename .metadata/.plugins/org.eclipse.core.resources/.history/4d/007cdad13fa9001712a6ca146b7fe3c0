@@ -137,12 +137,6 @@ public class DatabaseConnection {
 				}
 			}
 			
-			for(int y = 0; y<ar.size();y++){
-				for(int x = 0; x<7;x++){
-					System.out.println(flightResult[y][x]);
-				}
-			}
-			
 			//aufräumen
 			rs.close(); st.close(); connection.close();
 			return flightResult;

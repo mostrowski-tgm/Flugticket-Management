@@ -1,9 +1,0 @@
-package mvu;
-
-public class FlightWindow {
-
-	public void createGUI(){
-		
-	}
-	
-}

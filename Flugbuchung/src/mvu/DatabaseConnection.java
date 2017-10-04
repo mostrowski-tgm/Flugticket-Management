@@ -39,12 +39,15 @@ public class DatabaseConnection {
 		USERNAME = user;
 		PASSWORD = password;
 		 */
-		ds = new MysqlDataSource();
-		ds.setUser(user);
-		ds.setDatabaseName(databasename);
-		ds.setPassword(password);
-		ds.setServerName(hostname);
-		ds.setPort(Integer.parseInt(port));
+		if(ds == null){
+			ds = new MysqlDataSource();
+			ds.setUser(user);
+			ds.setDatabaseName(databasename);
+			ds.setPassword(password);
+			ds.setServerName(hostname);
+			ds.setPort(Integer.parseInt(port));
+		}
+		
 	}
 	/**
 	 * Baut eine Verbindung zur Database auf und lieﬂt alle Countrie-namen aus
@@ -59,12 +62,7 @@ public class DatabaseConnection {
 			ArrayList<String> ar = new ArrayList<String>();
 			while(rs.next()){
 				ar.add(rs.getString(1));
-			}
-			
-			for(int i = 0; i<ar.size();i++){
-				System.out.println(ar.get(i));
-			}
-			
+			}			
 			String[] stringAr = ar.toArray(new String[ar.size()]);
 			// aufr‰umen
 			rs.close(); st.close(); connection.close();

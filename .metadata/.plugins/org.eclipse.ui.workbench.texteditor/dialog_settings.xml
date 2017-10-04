@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="false" key="isRegEx"/>
+		<item value="dw.getProperties" key="selection"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="true" key="wrap"/>
+		<item value="false" key="wholeword"/>
+		<list key="findhistory">
+			<item value="getProperties"/>
+			<item value="dw."/>
+			<item value="jl2"/>
+			<item value="jl1"/>
+			<item value="passwort"/>
+			<item value="static"/>
+			<item value="panel"/>
+		</list>
+		<list key="replacehistory">
+			<item value="dw.getProperties"/>
+			<item value=""/>
+			<item value="zielland"/>
+			<item value="abflugland"/>
+			<item value="password"/>
+			<item value="pane"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="956" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|8.765218|0|WINDOWS|1|-14|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="332" key="DIALOG_HEIGHT"/>
+		<item value="9" key="DIALOG_X_ORIGIN"/>
+		<item value="170" key="DIALOG_Y_ORIGIN"/>
+	</section>
+</section>

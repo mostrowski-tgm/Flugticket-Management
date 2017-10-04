@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import java.sql.*;
 
@@ -28,7 +29,7 @@ public class DatabaseWindow implements ActionListener{
 	JTextField hostnameInput = new JTextField();
 	JTextField portInput = new JTextField();
 	JTextField userInput = new JTextField();
-	JTextField passwordInput = new JTextField();
+	JPasswordField passwordInput = new JPasswordField();
 	JTextField databasenameInput = new JTextField();
 	
 	JButton submit = new JButton("Submit");
@@ -104,6 +105,13 @@ public DatabaseWindow (){
 	pane.add(submit,c);
 	submit.addActionListener(this);
 	
+	//Test um nicht immer das gleiche eingeben zu müssen
+	hostnameInput.setText("localhost");
+	userInput.setText("root");
+	passwordInput.setText("SmokerLP11");
+	databasenameInput.setText("flightdata");
+	portInput.setText("3306");
+	
 	frame.add(pane);
 	frame.pack();
 	frame.setLocationRelativeTo(null);
@@ -134,16 +142,9 @@ public void actionPerformed(ActionEvent arg0) {
 	//TODO Sysout löschen
 	frame.dispose();
 	//TODO createGUI zum letzten Command verschieben
-	//
-	DatabaseConnection dc = new DatabaseConnection(getProperties().getProperty("hostname"),getProperties().getProperty("port"),getProperties().getProperty("user"),getProperties().getProperty("password"),getProperties().getProperty("databasename"));
-	dc.getAllCountries();
-	System.out.println("Get Airports:");
-	dc.getAirportsCountry("Austria");
-	System.out.println("Get Airportcode");
-	dc.getAirportcode("Austria", "St Anton");
-	System.out.println("Get Flights");
-	dc.getFlights("CMA", "IZT");
-	FlightWindow.createGUI();
+	FlightWindow.connectToDatabase(getProperties().getProperty("hostname"),getProperties().getProperty("port"),getProperties().getProperty("user"),getProperties().getProperty("password"),getProperties().getProperty("databasename"));
+	
+	
 	}
 
 public static Properties getProperties(){

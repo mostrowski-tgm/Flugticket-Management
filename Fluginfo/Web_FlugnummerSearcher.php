@@ -16,17 +16,24 @@
 	<?php
 	
 		/*
-		Die Werte der Datenbank werden in den Cookie gespeichert.
+		Die Werte der Datenbank zuerst auf Variablen und dann in den Cookie gespeichert.
 		*/
 		$name = $_POST['username'];
 		$pass = $_POST['password'];
 		$ad = $_POST['adresse'];
 		$typ = $_POST['data'];
+		$port = $_POST['port'];
+		
 						
 		setcookie("username", $name);
 		setcookie("password", $pass);
 		setcookie("adresse", $ad);
 		setcookie("typ", $typ);
+		setcookie("port", $port);
+		
+		/*Dient zur Überprüfung des Cookies
+		print_r($_COOKIE);
+		*/
 		
 	?>
 							
@@ -62,9 +69,6 @@
 					</div>
 				</div>	
 			</div>
-		</div>
-		<div class="col-md-4">
-		</div>
-		
+		</div>		
     </body>
 </html>

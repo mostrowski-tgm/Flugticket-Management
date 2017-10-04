@@ -40,13 +40,19 @@
 								<br>
 								<div class="row">
 									<div class="col-md-6 offset-md-3">
-										<input type="text" placeholder=" Insert IP-Adresse" name="adresse">
+										<input type="text" placeholder=" Insert IP-Adresse (127.0.0.1)" name="adresse">
 									</div>
 								</div>
 								<br>
 								<div class="row">
 									<div class="col-md-6 offset-md-3">
-										<input type="text" placeholder=" Insert Databanktyp" name="data">
+										<input type="text" placeholder=" Insert Databanktyp (mysqli)" name="data">
+									</div>
+								</div>
+								<br>
+								<div class="row">
+									<div class="col-md-6 offset-md-3">
+										<input type="text" placeholder=" Insert Port (3306)" name="port">
 									</div>
 								</div>
 								<br>
@@ -58,9 +64,6 @@
 					</div>
 				</div>	
 			</div>
-		</div>
-		<div class="col-md-4">
-		</div>
-		
+		</div>		
     </body>
 </html>

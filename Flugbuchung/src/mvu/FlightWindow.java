@@ -3,8 +3,11 @@ package mvu;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class FlightWindow implements ActionListener{
 	private static JFrame frame = new JFrame("Titel1");
@@ -16,18 +19,24 @@ public class FlightWindow implements ActionListener{
 	
 	private static String countrieList1[];
 	private static String countrieList2[];
-	private static JComboBox<String> countrieSelect1;
-	private static JComboBox<String> countrieSelect2;
+	private static JComboBox<String> countrieDrop1;
+	private static JComboBox<String> countrieDrop2;
 	private static String selctedCountrie1;
 	private static String selctedCountrie2;
 	
 	private static String[] airportAr1; 
 	private static String[] airportAr2;
-	private static JComboBox<String> airportSelect1;
-	private static JComboBox<String> airportSelect2;
+	private static JComboBox<String> airportDrop1;
+	private static JComboBox<String> airportDrop2;
+	private static String selectedAirport1;
+	private static String selectedAirport2;
 	
+	private static String[] columnNames = {"Airline", "Flightnumber", "Departure Airport", "Departure Time", "Destination Airport", "Destination Time", "Planetype"};
+	private static String depAirportCode;
+	private static String destAirportCode;
+	private static DefaultTableModel model;
 	private static String[] possflightAr;
-	private static JTable possibleflightsTable;
+	private static JTable possflightsTable;
 	
 	private static DatabaseWindow dw;
 	private static DatabaseConnection dc;
@@ -59,10 +68,10 @@ public class FlightWindow implements ActionListener{
 		c.weightx=1.;
 		//Abflugland bestimmen
 		countrieList1 = dc.getAllCountries();
-		countrieSelect1 = new JComboBox<String>(countrieList1);
-		countrieSelect1.setActionCommand("countrySelect1");
-		countrieSelect1.addActionListener(this);
-		pane.add(countrieSelect1,c);
+		countrieDrop1 = new JComboBox<String>(countrieList1);
+		countrieDrop1.setActionCommand("countrySelect1");
+		countrieDrop1.addActionListener(this);
+		pane.add(countrieDrop1,c);
 		
 		c.gridx = 1;
 		c.gridy = 1;
@@ -70,10 +79,10 @@ public class FlightWindow implements ActionListener{
 		
 		//Zielland bestimmen
 		countrieList2 = dc.getAllCountries();
-		countrieSelect2 = new JComboBox<String>(countrieList2);
-		countrieSelect2.setActionCommand("countrySelect2");
-		countrieSelect2.addActionListener(this);
-		pane.add(countrieSelect2,c);
+		countrieDrop2 = new JComboBox<String>(countrieList2);
+		countrieDrop2.setActionCommand("countrySelect2");
+		countrieDrop2.addActionListener(this);
+		pane.add(countrieDrop2,c);
 		
 		//Font der JLabels ändern
 		JAbflughafen.setFont(JAbflughafen.getFont().deriveFont(32.0f));
@@ -96,16 +105,20 @@ public class FlightWindow implements ActionListener{
 		//Dropdown Liste für Flughaefen dynamisch erzeugt nachdem user Land ausgewählt hat
 		//airportList ist ein String Array von Flughaefen in einem Land
 		airportAr1 = null;
-		airportSelect1 = new JComboBox<String>();
-		pane.add(airportSelect1,c);
+		airportDrop1 = new JComboBox<String>();
+		airportDrop1.setActionCommand("airportDrop1");
+		airportDrop1.addActionListener(this);
+		pane.add(airportDrop1,c);
 		
 		c.gridx = 1;
 		c.gridy = 3;
 		c.weightx=1.;
 		
 		airportAr2 = null;
-		airportSelect2 = new JComboBox<String>();
-		pane.add(airportSelect2,c);
+		airportDrop2 = new JComboBox<String>();
+		airportDrop2.setActionCommand("airportDrop2");
+		airportDrop2.addActionListener(this);
+		pane.add(airportDrop2,c);
 		
 		//TODO Platzalter für mögliche Flüge
 		c.gridx = 0;
@@ -119,11 +132,13 @@ public class FlightWindow implements ActionListener{
 		c.gridx = 0;
 		c.gridy = 5;
 		c.weightx=1.0;
+		c.gridwidth = 4;
 		possflightAr = null;
-		possibleflightsTable = new JTable();
-	//	possibleflightsTable.setActionCommand("possibleFlights");
-	//	possibleflightsTable.addActionListener(this);
-		pane.add(possibleflightsTable, c);
+		model = new DefaultTableModel(columnNames, 0);
+		possflightsTable = new JTable(model);
+	//	possflightsTable.setActionCommand("possibleFlights");
+	//	possflightsTable.addActionListener(this);
+		pane.add(new JScrollPane(possflightsTable), c);
 		
 		frame.add(pane);
 		frame.pack();
@@ -147,21 +162,52 @@ public class FlightWindow implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		dc.getFlights("CMA", "IZT");
 		if(e.getActionCommand().equals("countrySelect1")){
-			selctedCountrie1 = (String) countrieSelect1.getSelectedItem();
+			selctedCountrie1 = (String) countrieDrop1.getSelectedItem();
 			airportAr1 = dc.getAirportsCountry(selctedCountrie1);
-			airportSelect1.removeAllItems();
+			airportDrop1.removeAllItems();
 			for(int i = 0; i<airportAr1.length;i++){
-				airportSelect1.addItem(airportAr1[i]);
+				airportDrop1.addItem(airportAr1[i]);
 			}
 		}else if(e.getActionCommand().equals("countrySelect2")){
-			selctedCountrie2 = (String) countrieSelect2.getSelectedItem();
+			selctedCountrie2 = (String) countrieDrop2.getSelectedItem();
 			airportAr2 = dc.getAirportsCountry(selctedCountrie2);
-			airportSelect2.removeAllItems();
+			airportDrop2.removeAllItems();
 			for(int i = 0; i<airportAr2.length;i++){
-				airportSelect2.addItem(airportAr2[i]);
+				airportDrop2.addItem(airportAr2[i]);
 			}
+		}else if(e.getActionCommand().equals("airportDrop1") || e.getActionCommand().equals("airportDrop2")){
+
+			selectedAirport1 = (String) airportDrop1.getSelectedItem();
+			selectedAirport2 = (String) airportDrop2.getSelectedItem();
+			System.out.println(selectedAirport1);
+			System.out.println(selectedAirport2);
+			if(selectedAirport1 != null && selectedAirport2 != null){
+				
+				depAirportCode = dc.getAirportcode(selctedCountrie1, selectedAirport1);
+				destAirportCode = dc.getAirportcode(selctedCountrie2, selectedAirport2);
+				//System.out.println("CODE: "+depAirportCode+";"+destAirportCode);
+				//possflightsTable.removeAll();
+				try{
+					int lengthOfFlights = dc.getFlights(depAirportCode, destAirportCode).size();
+					if(lengthOfFlights != 0){
+						//possflightsTable = new JTable(dc.getFlights(depAirportCode, depAirportCode), columnNames);
+						//possflightsTable.addRow(dc.getFlights(depAirportCode, destAirportCode));
+						for(int i = 0; i<lengthOfFlights;i++){
+							System.out.println(dc.getFlights(depAirportCode, destAirportCode));
+							ArrayList<Object[]> ar = dc.getFlights(depAirportCode, destAirportCode);
+							model.addRow(ar.get(i));
+							frame.pack();
+						}
+						
+						
+					}
+				}catch(Exception exc){
+					exc.printStackTrace();
+					System.out.println("Keine vorhandenen Flüge!");
+				}
+			}
+			//Die Zeile gilt wenn der User auf einen Flug klickt
 		}else if(e.getActionCommand().equals("possibleFlights")){
 			
 		}

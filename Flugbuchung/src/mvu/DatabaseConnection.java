@@ -105,7 +105,7 @@ public class DatabaseConnection {
 			while(rs.next()){
 				airportCode = (rs.getString(1));
 			}
-			System.out.println(airportCode);
+			//System.out.println(airportCode);
 			//aufräumen
 			rs.close(); st.close(); connection.close();
 			return airportCode;
@@ -115,37 +115,36 @@ public class DatabaseConnection {
 		return null;
 	}
 	
-	public String[][] getFlights(String depAirport, String destAirport){
+	public ArrayList getFlights(String depAirport, String destAirport){
 		try{
 			connection = ds.getConnection();
 			Statement st = connection.createStatement();
 			ResultSet rs = st.executeQuery("SELECT airline,flightnr,departure_airport,departure_time,destination_airport,destination_time,planetype FROM flights INNER JOIN airports ON flights.departure_airport = airports.airportcode AND flights.departure_airport =  '"+depAirport+"' AND flights.destination_airport =  '"+destAirport+"';");
 			
-			
-			
-			ArrayList<String[]> ar = new ArrayList<String[]>();
+			ArrayList<Object[]> ar = new ArrayList<Object[]>();
 			while(rs.next()){
-				String[] row = {rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)};
+				Object[] row = {rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)};
 				ar.add(row);
 			}
 			
-			//String[][] flightResult = new String[ar.size()][7];
-			String[][] flightResult = null;
-			for(int y = 0; y<ar.size();y++){
-				for(int x = 0; x<7;x++){
-					flightResult = ar.toArray(new String[0][0]);
-				}
-			}
 			
-			for(int y = 0; y<ar.size();y++){
-				for(int x = 0; x<7;x++){
-					System.out.println(flightResult[y][x]);
-				}
-			}
+//			String[][] flightResult = null;
+//			for(int y = 0; y<ar.size();y++){
+//				for(int x = 0; x<7;x++){
+//					flightResult = ar.toArray(new String[0][0]);
+//				}
+//			}
+//			
+//			//Testzwecke
+//			for(int y = 0; y<ar.size();y++){
+//				for(int x = 0; x<7;x++){
+//					System.out.println(flightResult[y][x]);
+//				}
+//			}
 			
 			//aufräumen
 			rs.close(); st.close(); connection.close();
-			return flightResult;
+			return ar;
 		}catch(SQLException e){
 			e.printStackTrace();
 		}

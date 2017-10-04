@@ -158,7 +158,7 @@ public class FlightWindow implements ActionListener{
 		}else if(e.getActionCommand().equals("countrySelect2")){
 			selctedCountrie2 = (String) countrieSelect2.getSelectedItem();
 			airportList2 = dc.getAirportsCountry(selctedCountrie2);
-			airportSelect2.removeAllItems();
+			airportSelect1.removeAllItems();
 			for(int i = 0; i<airportList2.length;i++){
 				airportSelect2.addItem(airportList2[i]);
 			}

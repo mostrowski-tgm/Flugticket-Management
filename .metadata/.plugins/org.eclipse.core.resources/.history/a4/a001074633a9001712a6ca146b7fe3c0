@@ -151,17 +151,14 @@ public class FlightWindow implements ActionListener{
 		if(e.getActionCommand().equals("countrySelect1")){
 			selctedCountrie1 = (String) countrieSelect1.getSelectedItem();
 			airportList1 = dc.getAirportsCountry(selctedCountrie1);
-			airportSelect1.removeAllItems();
 			for(int i = 0; i<airportList1.length;i++){
 				airportSelect1.addItem(airportList1[i]);
 			}
+			airportSelect1 = new JComboBox<String>(airportList1);
 		}else if(e.getActionCommand().equals("countrySelect2")){
 			selctedCountrie2 = (String) countrieSelect2.getSelectedItem();
 			airportList2 = dc.getAirportsCountry(selctedCountrie2);
-			airportSelect2.removeAllItems();
-			for(int i = 0; i<airportList2.length;i++){
-				airportSelect2.addItem(airportList2[i]);
-			}
+			airportSelect2 = new JComboBox<String>(airportList2);
 		}
 		
 		

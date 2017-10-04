@@ -50,7 +50,7 @@ public class DatabaseConnection {
 	 * Baut eine Verbindung zur Database auf und lieﬂt alle Countrie-namen aus
 	 * @return eine Arraylist mit allen L‰ndern
 	 */
-	public ArrayList<String> getAllCountries(){
+	public String[] getAllCountries(){
 		try{
 			connection = ds.getConnection();
 			Statement st = connection.createStatement();
@@ -60,25 +60,23 @@ public class DatabaseConnection {
 			while(rs.next()){
 				ar.add(rs.getString(1));
 			}
-			/**
-			 * Testzwecke
-			 * for(int i = 0; i<ar.size();i++){
+			
+			for(int i = 0; i<ar.size();i++){
 				System.out.println(ar.get(i));
 			}
-			 */
 			
-			
+			String[] stringAr = ar.toArray(new String[ar.size()]);
 			// aufr‰umen
 			rs.close(); st.close(); connection.close();
 			//return countriesArr;
-			return ar;
+			return stringAr;
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
-	public ArrayList<String> getAirportsCountry(String country){
+	public String[] getAirportsCountry(String country){
 		try{
 			connection = ds.getConnection();
 			Statement st = connection.createStatement();
@@ -89,9 +87,60 @@ public class DatabaseConnection {
 				ar.add(rs.getString(1));
 			}
 			
+			for(int i = 0; i<ar.size();i++){
+				System.out.println(ar.get(i));
+			}
+			
+			
+			String[] stringAr = ar.toArray(new String[ar.size()]);
 			//aufr‰umen
 			rs.close(); st.close(); connection.close();
-			return ar;
+			return stringAr;
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public String getAirportcode(String country, String airportname){
+		try{
+			connection = ds.getConnection();
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery("SELECT airports.airportcode FROM airports,countries WHERE airports.country = countries.code AND countries.name = '"+country+"' AND airports.name = '"+airportname+"';");
+			
+			String airportCode = null;
+			while(rs.next()){
+				airportCode = (rs.getString(1));
+			}
+			System.out.println(airportCode);
+			//aufr‰umen
+			rs.close(); st.close(); connection.close();
+			return airportCode;
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public String[] getFlights(String depAirport, String destAirport){
+		try{
+			connection = ds.getConnection();
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery("SELECT departure_airport,destination_airport FROM flights INNER JOIN airports ON flights.departure_airport = airports.airportcode AND flights.departure_airport =  '"+depAirport+"' AND flights.destination_airport =  '"+destAirport+"';");
+			
+			ArrayList<String> ar = new ArrayList<String>();
+			while(rs.next()){
+				ar.add(rs.getString(1) + "," + rs.getString(2));
+			}
+			
+			for(int i = 0; i<ar.size();i++){
+				System.out.println(ar.get(i));
+			}
+			
+			String[] stringAr = ar.toArray(new String[ar.size()]);
+			//aufr‰umen
+			rs.close(); st.close(); connection.close();
+			return stringAr;
 		}catch(SQLException e){
 			e.printStackTrace();
 		}

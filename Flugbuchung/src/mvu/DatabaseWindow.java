@@ -134,10 +134,16 @@ public void actionPerformed(ActionEvent arg0) {
 	//TODO Sysout löschen
 	frame.dispose();
 	//TODO createGUI zum letzten Command verschieben
-	//FlightWindow.createGUI();
+	//
 	DatabaseConnection dc = new DatabaseConnection(getProperties().getProperty("hostname"),getProperties().getProperty("port"),getProperties().getProperty("user"),getProperties().getProperty("password"),getProperties().getProperty("databasename"));
 	dc.getAllCountries();
+	System.out.println("Get Airports:");
 	dc.getAirportsCountry("Austria");
+	System.out.println("Get Airportcode");
+	dc.getAirportcode("Austria", "St Anton");
+	System.out.println("Get Flights");
+	dc.getFlights("CMA", "IZT");
+	FlightWindow.createGUI();
 	}
 
 public static Properties getProperties(){

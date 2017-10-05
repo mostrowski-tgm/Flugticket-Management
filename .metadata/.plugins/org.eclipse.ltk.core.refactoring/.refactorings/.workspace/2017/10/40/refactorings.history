@@ -1,4 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Delete resource &apos;fibonacci&apos;" deleteContents="true" description="Delete resource &apos;fibonacci&apos;" element1="/fibonacci" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1507201025014"/>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;fibonacci&apos;" deleteContents="true" description="Delete resource &apos;fibonacci&apos;" element1="/fibonacci" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1507201025014"/>&#x0A;<refactoring comment="Rename Java project &apos;Flugbuchung&apos; to &apos;Buchung&apos;&#x0D;&#x0A;- Original element: &apos;Flugbuchung&apos;&#x0D;&#x0A;- Renamed element: &apos;Flugbuchung&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename Java project &apos;Flugbuchung&apos;" flags="7" id="org.eclipse.jdt.ui.rename.java.project" input="=Flugbuchung" name="Buchung" references="true" stamp="1507241691334" version="1.0"/>
 </session>

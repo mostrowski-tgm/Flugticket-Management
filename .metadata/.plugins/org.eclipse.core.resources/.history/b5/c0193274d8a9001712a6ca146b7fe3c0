@@ -1,0 +1,173 @@
+package mvu;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+
+public class DatabaseConnection {
+	private Connection connection;
+	
+	//TODO Eventuelle Auswahl der Datenbank und damit verschiedene database_driver einbinden
+	/**
+	 *private static String DATABASE_DRIVER = "com.mysql.jdbc.Driver";
+	private static String DATABASE_URL; //"jdbc:mysql://localhost:3306/database_name"
+	private static String HOSTNAME;
+	private static int PORT;
+	private static String USERNAME;
+	private static String PASSWORD;
+	 */
+	private static MysqlDataSource ds;
+	
+	/**
+	 * Konstruktor baut die DataSource auf
+	 * @param hostname
+	 * @param port
+	 * @param user
+	 * @param password
+	 * @param databasename
+	 */
+	public DatabaseConnection(String hostname, String port, String user, String password, String databasename){
+		/**
+		 * DATABASE_URL = "jdbc:mysql://"+hostname+":"+port+"/flightdata";
+		HOSTNAME = hostname;
+		PORT = Integer.parseInt(port);
+		USERNAME = user;
+		PASSWORD = password;
+		 */
+		if(ds == null){
+			ds = new MysqlDataSource();
+			ds.setUser(user);
+			ds.setDatabaseName(databasename);
+			ds.setPassword(password);
+			ds.setServerName(hostname);
+			ds.setPort(Integer.parseInt(port));
+		}
+		
+	}
+	/**
+	 * Baut eine Verbindung zur Database auf und lieﬂt alle Countrie-namen aus
+	 * @return eine Arraylist mit allen L‰ndern
+	 */
+	public String[] getAllCountries(){
+		try{
+			connection = ds.getConnection();
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery("SELECT name FROM countries;");
+			
+			ArrayList<String> ar = new ArrayList<String>();
+			while(rs.next()){
+				ar.add(rs.getString(1));
+			}			
+			String[] stringAr = ar.toArray(new String[ar.size()]);
+			// aufr‰umen
+			rs.close(); st.close(); connection.close();
+			//return countriesArr;
+			return stringAr;
+		}catch(SQLException e){
+			JOptionPane.showMessageDialog(null, "Connection konnte nicht mit der Database aufgebaut werden!");
+		}
+		return null;
+	}
+	
+	public String[] getAirportsCountry(String country){
+		try{
+			connection = ds.getConnection();
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery("SELECT airports.name FROM airports,countries WHERE airports.country = countries.code AND countries.name = '"+country+"';");
+			
+			ArrayList<String> ar = new ArrayList<String>();
+			while(rs.next()){
+				ar.add(rs.getString(1));
+			}
+			
+			String[] stringAr = ar.toArray(new String[ar.size()]);
+			//aufr‰umen
+			rs.close(); st.close(); connection.close();
+			return stringAr;
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public String getAirportcode(String country, String airportname){
+		try{
+			connection = ds.getConnection();
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery("SELECT airports.airportcode FROM airports,countries WHERE airports.country = countries.code AND countries.name = '"+country+"' AND airports.name = '"+airportname+"';");
+			
+			String airportCode = null;
+			while(rs.next()){
+				airportCode = (rs.getString(1));
+			}
+			//System.out.println(airportCode);
+			//aufr‰umen
+			rs.close(); st.close(); connection.close();
+			return airportCode;
+		}catch(SQLException e){
+			JOptionPane.showMessageDialog(null, "Connection konnte nicht mit der Database aufgebaut werden!");
+		}
+		return null;
+	}
+	
+	public ArrayList getFlights(String depAirport, String destAirport){
+		try{
+			connection = ds.getConnection();
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery("SELECT airline,flightnr,departure_airport,departure_time,destination_airport,destination_time,planetype FROM flights INNER JOIN airports ON flights.departure_airport = airports.airportcode AND flights.departure_airport =  '"+depAirport+"' AND flights.destination_airport =  '"+destAirport+"';");
+			//TODO time in dd.mm.yyyy hh:mm ausgeben
+			ArrayList<Object[]> ar = new ArrayList<Object[]>();
+			while(rs.next()){
+				Object[] row = {rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)};
+				ar.add(row);
+			}
+			
+			
+//			String[][] flightResult = null;
+//			for(int y = 0; y<ar.size();y++){
+//				for(int x = 0; x<7;x++){
+//					flightResult = ar.toArray(new String[0][0]);
+//				}
+//			}
+//			
+//			//Testzwecke
+//			for(int y = 0; y<ar.size();y++){
+//				for(int x = 0; x<7;x++){
+//					System.out.println(flightResult[y][x]);
+//				}
+//			}
+			
+			//aufr‰umen
+			rs.close(); st.close(); connection.close();
+			return ar;
+		}catch(SQLException e){
+			JOptionPane.showMessageDialog(null, "Connection konnte nicht mit der Database aufgebaut werden!");
+		}
+		return null;
+	}
+	
+	public void addPassenger(String name,String lastname, String row, String seat){
+		try{
+			connection = ds.getConnection();
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery("SELECT max(id) FROM passengers;");
+			
+			int freeID = rs.getInt(1)+1;
+			rs.close(); st.close();
+			
+			PreparedStatement statment = connection.prepareStatement("INSERT INTO passengers VALUES(`"+freeID+"`,`"+name+"`,`"+lastname+"`,`airline`,`flightnr`,`"+row+"`,`"+seat+"`) VALUES");
+		}catch(SQLException e){
+			JOptionPane.showMessageDialog(null, "Connection konnte nicht mit der Database aufgebaut werden!");
+		}
+	}
+	
+	
+}

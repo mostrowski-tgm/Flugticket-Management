@@ -1,0 +1,236 @@
+package mvu;
+
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+
+public class BookingWindow implements ActionListener{
+	JTextField nameInput;
+	JTextField lastNameInput;
+	JTextField reiheInput;
+	JTextField sitzeInput;
+	
+	String nameValue;
+	String lastNameValue;
+	String reiheValue;
+	String sitzeValue;
+	String flightnrValue;
+	String airlineValue;
+	String planetypValue;
+
+	public BookingWindow(String fromAirport, String toAirport, String depTime, String destTime, String airline, String planetyp, String flightnr){
+		flightnrValue = flightnr;
+		airlineValue = airline;
+		planetypValue = planetyp;
+		
+		JFrame bFrame = new JFrame("Booking");
+		bFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		JPanel bPanel = new JPanel();
+		bPanel.setLayout(new GridBagLayout());
+
+		GridBagConstraints c = new GridBagConstraints();
+		c.insets = new Insets(5,5,5,5);
+		
+		c.gridx = 0;
+		c.gridy = 0;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		JLabel fromLabel = new JLabel("From:");
+		bPanel.add(fromLabel,c);
+		
+		c.gridx = 1;
+		c.gridy = 0;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		JLabel fromAirportLabel = new JLabel(fromAirport);
+		bPanel.add(fromAirportLabel,c);
+		
+		
+		c.gridx = 0;
+		c.gridy = 1;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		JLabel toLabel = new JLabel("To:");
+		bPanel.add(toLabel,c);
+		
+		c.gridx = 1;
+		c.gridy = 1;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		JLabel toAirportLabel = new JLabel(toAirport);
+		bPanel.add(toAirportLabel,c);
+		
+		c.gridx = 0;
+		c.gridy = 2;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		JLabel depTimeLabel = new JLabel("Departure Time:");
+		bPanel.add(depTimeLabel,c);
+		
+		c.gridx = 1;
+		c.gridy = 2;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		JLabel depTimeValue = new JLabel(depTime);
+		bPanel.add(depTimeValue,c);
+		
+		c.gridx = 0;
+		c.gridy = 3;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		JLabel destTimeLabel = new JLabel("Destination Time:");
+		bPanel.add(destTimeLabel,c);
+		
+		c.gridx = 1;
+		c.gridy = 3;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		JLabel destTimeValue = new JLabel(destTime);
+		bPanel.add(destTimeValue,c);
+		
+		c.gridx = 0;
+		c.gridy = 4;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		JLabel airlineLabel = new JLabel("Airline:");
+		bPanel.add(airlineLabel,c);
+		
+		c.gridx = 1;
+		c.gridy = 4;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		JLabel airlineTimeValue = new JLabel(airline);
+		bPanel.add(airlineTimeValue,c);
+		
+		c.gridx = 0;
+		c.gridy = 5;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		JLabel planeLabel = new JLabel("Planetyp:");
+		bPanel.add(planeLabel,c);
+		
+		c.gridx = 1;
+		c.gridy = 5;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		JLabel planeTimeValue = new JLabel(planetyp);
+		bPanel.add(planeTimeValue,c);
+		
+		c.gridx = 0;
+		c.gridy = 6;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		JLabel flightnrLabel = new JLabel("Flightnr:");
+		bPanel.add(flightnrLabel,c);
+		
+		c.gridx = 1;
+		c.gridy = 6;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		JLabel flightnrTime = new JLabel(flightnr);
+		bPanel.add(flightnrTime,c);
+		
+		c.gridx = 0;
+		c.gridy = 7;
+		c.weightx=1.;
+		c.gridwidth=2;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+	    JSeparator sep = new JSeparator();
+		bPanel.add(sep,c);
+		
+		c.gridx = 0;
+		c.gridy = 8;
+		c.gridwidth = 2;
+		JLabel ticketBuchungLabel = new JLabel("Ticket buchen");
+		ticketBuchungLabel.setFont(ticketBuchungLabel.getFont().deriveFont(20.0f));
+		bPanel.add(ticketBuchungLabel,c);
+		
+		c.gridx = 0;
+		c.gridy = 9;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		JLabel NameLabel = new JLabel("Vorname:");
+		bPanel.add(NameLabel,c);
+		
+		c.gridx = 1;
+		c.gridy = 9;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		nameInput = new JTextField();
+		bPanel.add(nameInput,c);
+		
+		c.gridx = 0;
+		c.gridy = 10;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		JLabel lastNameLabel = new JLabel("Nachname:");
+		bPanel.add(lastNameLabel,c);
+		
+		c.gridx = 1;
+		c.gridy = 10;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		lastNameInput = new JTextField();
+		bPanel.add(lastNameInput,c);
+		
+		c.gridx = 0;
+		c.gridy = 11;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		JLabel reiheLabel = new JLabel("Reihe:");
+		bPanel.add(reiheLabel,c);
+		
+		c.gridx = 1;
+		c.gridy = 11;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+	    reiheInput = new JTextField();
+		bPanel.add(reiheInput,c);
+		
+		c.gridx = 0;
+		c.gridy = 12;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+		JLabel sitzLabel = new JLabel("Sitz:");
+		bPanel.add(sitzLabel,c);
+		
+		c.gridx = 1;
+		c.gridy = 12;
+		c.weightx=1.;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+	    sitzeInput = new JTextField();
+		bPanel.add(sitzeInput,c);
+		
+		c.gridx = 0;
+		c.gridy = 13;
+		c.weightx=1.;
+		c.gridwidth = 2;
+	    c.fill=GridBagConstraints.HORIZONTAL;
+	    JButton book = new JButton("Buchen");
+	    book.addActionListener(this);
+		bPanel.add(book,c);
+		
+		bFrame.add(bPanel);
+		bFrame.pack();
+		bFrame.setLocationRelativeTo(null);
+		bFrame.setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		nameValue = nameInput.getText();
+		lastNameValue = lastNameInput.getText();
+		reiheValue = reiheInput.getText();
+		sitzeValue = sitzeInput.getText();
+	}
+}

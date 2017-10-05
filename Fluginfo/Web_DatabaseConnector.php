@@ -25,9 +25,11 @@
 							</h1>							
 						</div>
 						<div class="panel-body">
+							<!--Method Post = Secret & Get = in URL-->
 							<form action="Web_FlugnummerSearcher.php" method="post">
 								<div class="row">
 									<div class="col-md-6 offset-md-3">
+										<!--Name wird später mit $_POST[name] geholt-->
 										<input type="text" placeholder=" Insert Username" name="username">
 									</div>
 								</div>

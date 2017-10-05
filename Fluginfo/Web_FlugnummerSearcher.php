@@ -23,8 +23,7 @@
 		$ad = $_POST['adresse'];
 		$typ = $_POST['data'];
 		$port = $_POST['port'];
-		
-						
+			
 		setcookie("username", $name);
 		setcookie("password", $pass);
 		setcookie("adresse", $ad);

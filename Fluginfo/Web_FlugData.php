@@ -61,7 +61,7 @@
 		echo "Connection failed: " . $e->getMessage();
 		}
 		
-		
+		//Zusatzdaten werden in Cookie gespeichert
 		setcookie("Flugnummer", $flugnummer);
 		setcookie("Fluglinie", $airline);
 		setcookie("Flugzeugtyp", $planetyp);
@@ -72,13 +72,14 @@
 		setcookie("Abflughafen", $start_dep_air);
 		setcookie("Anflughafen", $end_des_air);
 		
-		print_r($_COOKIE);
+		//print_r($_COOKIE);
 		?>		
 		<div class="container">
 			<div class="row">
 				<div class="text-center">
 					<h1>Fluginformationen zum Flug 
 					<?php 
+					//result wird vorbereitet und gefetch --> holt (in dem Fall) nur eine Row und der erste Index wird auf die Variable $airlinename gespeichert.
 					$result = $conn -> query("SELECT name FROM airlines WHERE id LIKE '$airline'");
 					$row = $result -> fetch();
 					$airlinename = $row[0];
@@ -223,6 +224,7 @@
 									</td>
 									<td colspan="2">
 									<?php
+									//Maximale Sitzanzahl wird geholt
 									$result = $conn -> query("SELECT maxseats FROM planes WHERE id LIKE $planetyp");
 									$row = $result -> fetch();
 									$maxseat = $row[0];
@@ -235,7 +237,10 @@
 									<strong>Anzahl aller Passagiere</strong>
 									</td>
 									<td colspan="2">
-									<?php echo $counter ?>
+									<?php
+									//Ruft den Counter der Passagiere auf
+									echo $counter 
+									?>
 									</td>
 								</tr>
 								<tr>
@@ -244,13 +249,13 @@
 									</td>
 									<td colspan="2">
 									<?php
+									//Ausrechnung der freien Plätze
 									$frei = $maxseat - $counter;
 									echo $frei 
 									?>
 									</td>
 								</tr>
 							</table>
-							
 						</div>
 					</div>
                 </div>        

@@ -28,12 +28,10 @@
 		try{			
 		$conn = new PDO("$db_data:$db_port=$db_servername;dbname=$db_name", $db_username, $db_password);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		
-		echo $id;
-		
+				
 		$stmt = $conn -> query("SELECT flightnr FROM passengers WHERE id LIKE $id");
 
-		//Löscht den Passagier mit der richtigen ID
+		//Löscht den Passagier mit der ID, welche vom Buttonklick mitgeschickt wurde.
 		$conn -> query("DELETE FROM passengers WHERE id=$id");
 		header("Location: Web_FlugData.php?flugnr=$flugnr");
 		}

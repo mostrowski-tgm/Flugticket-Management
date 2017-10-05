@@ -27,7 +27,7 @@
 		$conn = new PDO("$db_data:host=$db_servername;dbname=$db_name", $db_username, $db_password);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
-		$stmt = $conn -> prepare("SELECT * FROM flights WHERE flightnr LIKE flightnr=:flugnummer");
+		$stmt = $conn -> prepare("SELECT * FROM flights WHERE flightnr LIKE :flugnummer");
 		
 		$stmt -> bindParam(":flugnummer", $flugnummer);
 		$flugnummer = $_POST["flugnr"];
@@ -35,25 +35,26 @@
     
 			if($stmt -> rowCount() > 0){
 				$flight = $stmt -> fetch();
-				$airline = $flight[1];
-				$start_arp = $flight[2];
-				$start_apc = $flight[3];
-				$dest_ arp = $flight[3];
-				$dest_apc = $flight[5];
+				$airline = $flight[0];
+				$start_arp = $flight[1];
+				$start_apc = $flight[2];
+				$dest_arp = $flight[3];
+				$dest_apc = $flight[4];
 			}
 		}
 		catch(PDOException $e) {
 		echo "Connection failed: " . $e->getMessage();
 		}
-		
+		/* 
+		Zum Darstellen von den Cookies
 		print_r($_COOKIE);
-		
+		*/
 		?>
 		
 	 <div class="container">
       <div class="row">
         <div class="text-center">
-          <h1>Fluginformationen zu <?php echo strtoupper($airline);?></h1>
+          <h1>Fluginformationen zum Flug <?php echo strtoupper($flugnummer);?></h1>
         </div>
       </div>
       <div class="row">

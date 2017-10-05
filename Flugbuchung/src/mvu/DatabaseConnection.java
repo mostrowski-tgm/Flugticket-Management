@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 public class DatabaseConnection {
@@ -69,7 +71,7 @@ public class DatabaseConnection {
 			//return countriesArr;
 			return stringAr;
 		}catch(SQLException e){
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Connection konnte nicht mit der Database aufgebaut werden!");
 		}
 		return null;
 	}
@@ -110,7 +112,7 @@ public class DatabaseConnection {
 			rs.close(); st.close(); connection.close();
 			return airportCode;
 		}catch(SQLException e){
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Connection konnte nicht mit der Database aufgebaut werden!");
 		}
 		return null;
 	}
@@ -120,7 +122,7 @@ public class DatabaseConnection {
 			connection = ds.getConnection();
 			Statement st = connection.createStatement();
 			ResultSet rs = st.executeQuery("SELECT airline,flightnr,departure_airport,departure_time,destination_airport,destination_time,planetype FROM flights INNER JOIN airports ON flights.departure_airport = airports.airportcode AND flights.departure_airport =  '"+depAirport+"' AND flights.destination_airport =  '"+destAirport+"';");
-			
+			//TODO time in dd.mm.yyyy hh:mm ausgeben
 			ArrayList<Object[]> ar = new ArrayList<Object[]>();
 			while(rs.next()){
 				Object[] row = {rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)};
@@ -146,7 +148,7 @@ public class DatabaseConnection {
 			rs.close(); st.close(); connection.close();
 			return ar;
 		}catch(SQLException e){
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Connection konnte nicht mit der Database aufgebaut werden!");
 		}
 		return null;
 	}

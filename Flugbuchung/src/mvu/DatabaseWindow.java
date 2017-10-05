@@ -141,7 +141,6 @@ public void actionPerformed(ActionEvent arg0) {
 	}
 	//TODO Sysout löschen
 	frame.dispose();
-	//TODO createGUI zum letzten Command verschieben
 	FlightWindow.connectToDatabase(getProperties().getProperty("hostname"),getProperties().getProperty("port"),getProperties().getProperty("user"),getProperties().getProperty("password"),getProperties().getProperty("databasename"));
 	
 	

@@ -216,7 +216,7 @@ public class DatabaseConnection {
 	/**
 	 * Bekommt vollen Flugzeugnamen mittels dem Flugzeugkuerzel
 	 * @param id
-	 * @return String mit dem vollen Flugzeugnamen
+	 * @return
 	 */
 	public String getFullPlanename(String id){
 		try{
@@ -242,7 +242,7 @@ public class DatabaseConnection {
 	/**
 	 * Bekommt vollen Flughafennamen mittels dem Flughafenkuerzel
 	 * @param airportcode
-	 * @return String mit dem vollen Flughafennamen
+	 * @return
 	 */
 	public String getFullAirportname(String airportcode){
 		try{

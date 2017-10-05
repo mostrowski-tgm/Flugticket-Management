@@ -247,9 +247,6 @@ public class FlightWindow implements ActionListener{
 							ArrayList<Object[]> ar = dc.getFlights(depAirportCode, destAirportCode);
 							model.addRow(ar.get(i));
 							possflightsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-								/**
-								 * Wenn User auf die Tabelle drückt wird BookingWindow aufgerufen
-								 */
 								@Override
 								public void valueChanged(ListSelectionEvent e) {
 									if(e.getValueIsAdjusting()){

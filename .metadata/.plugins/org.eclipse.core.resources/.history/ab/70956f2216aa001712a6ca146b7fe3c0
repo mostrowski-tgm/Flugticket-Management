@@ -108,7 +108,7 @@ public DatabaseWindow (){
 	//Test um nicht immer das gleiche eingeben zu müssen
 	hostnameInput.setText("localhost");
 	userInput.setText("root");
-	passwordInput.setText("");
+	passwordInput.setText("SmokerLP11");
 	databasenameInput.setText("flightdata");
 	portInput.setText("3306");
 	
@@ -118,9 +118,6 @@ public DatabaseWindow (){
 	frame.setVisible(true);
 	frame.setMinimumSize(frame.getSize());
 }
-/**
- * Checkt den Input ob gültig, wenn ja schickt er diesen an FlightWindow weiter
- */
 @Override
 public void actionPerformed(ActionEvent arg0) {
 	properties = new Properties();

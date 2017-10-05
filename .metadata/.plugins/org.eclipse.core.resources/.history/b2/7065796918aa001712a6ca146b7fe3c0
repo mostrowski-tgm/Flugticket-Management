@@ -130,6 +130,7 @@ public class DatabaseConnection {
 			connection = ds.getConnection();
 			Statement st = connection.createStatement();
 			ResultSet rs = st.executeQuery("SELECT airline,flightnr,departure_airport,departure_time,destination_airport,destination_time,planetype FROM flights INNER JOIN airports ON flights.departure_airport = airports.airportcode AND flights.departure_airport =  '"+depAirport+"' AND flights.destination_airport =  '"+destAirport+"';");
+			//TODO time in dd.mm.yyyy hh:mm ausgeben
 			ArrayList<Object[]> ar = new ArrayList<Object[]>();
 			while(rs.next()){
 				//Formatiert die Abflugzeit in das Format dd-MM-yyyy HH:mm
@@ -216,7 +217,7 @@ public class DatabaseConnection {
 	/**
 	 * Bekommt vollen Flugzeugnamen mittels dem Flugzeugkuerzel
 	 * @param id
-	 * @return String mit dem vollen Flugzeugnamen
+	 * @return
 	 */
 	public String getFullPlanename(String id){
 		try{
@@ -242,7 +243,7 @@ public class DatabaseConnection {
 	/**
 	 * Bekommt vollen Flughafennamen mittels dem Flughafenkuerzel
 	 * @param airportcode
-	 * @return String mit dem vollen Flughafennamen
+	 * @return
 	 */
 	public String getFullAirportname(String airportcode){
 		try{

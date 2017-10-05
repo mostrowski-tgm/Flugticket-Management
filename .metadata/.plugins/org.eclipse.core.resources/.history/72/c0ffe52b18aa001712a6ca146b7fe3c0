@@ -23,7 +23,7 @@ public class DatabaseConnection {
 	private static MysqlDataSource ds;
 	
 	/**
-	 * Fuellt die DataSource mit den entsprechenden Eingaben des Users
+	 * Füllt die DataSource mit den entsprechenden Eingaben des Users
 	 * @param hostname Der Name des (lokalen)Servers
 	 * @param port Portnummer des Server
 	 * @param user User der Datenbank
@@ -94,10 +94,10 @@ public class DatabaseConnection {
 	}
 	
 	/**
-	 * Returnt den Airportcode bzw. das kuerzel von einem Flughafen
+	 * Returnt den Airportcode bzw. das kürzel von einem Flughafen
 	 * @param country
 	 * @param airportname
-	 * @return Returnt String, den Airportcode bzw. das kuerzel von einem Flughafen
+	 * @return Returnt String, den Airportcode bzw. das kürzel von einem Flughafen
 	 */
 	public String getAirportcode(String country, String airportname){
 		try{
@@ -123,13 +123,14 @@ public class DatabaseConnection {
 	 * Bekommt alle Fluege die von einem Flughafen zum anderne Flughafen fliegen
 	 * @param depAirport
 	 * @param destAirport
-	 * @return Returnt ArrayList die gefuellt ist mit Object[]. Die Object[] beinhalten 6 Einträge: Airline, Flugnummer, Abflugflughafen, Abflugzeit, Ankunftsflughafen,  Ankunftszeit und den Flugzeugtyp
+	 * @return Returnt ArrayList die gefüllt ist mit Object[]. Die Object[] beinhalten 6 Einträge: Airline, Flugnummer, Abflugflughafen, Abflugzeit, Ankunftsflughafen,  Ankunftszeit und den Flugzeugtyp
 	 */
 	public ArrayList getFlights(String depAirport, String destAirport){
 		try{
 			connection = ds.getConnection();
 			Statement st = connection.createStatement();
 			ResultSet rs = st.executeQuery("SELECT airline,flightnr,departure_airport,departure_time,destination_airport,destination_time,planetype FROM flights INNER JOIN airports ON flights.departure_airport = airports.airportcode AND flights.departure_airport =  '"+depAirport+"' AND flights.destination_airport =  '"+destAirport+"';");
+			//TODO time in dd.mm.yyyy hh:mm ausgeben
 			ArrayList<Object[]> ar = new ArrayList<Object[]>();
 			while(rs.next()){
 				//Formatiert die Abflugzeit in das Format dd-MM-yyyy HH:mm
@@ -155,7 +156,7 @@ public class DatabaseConnection {
 	}
 	
 	/**
-	 * Fuegt einen neuen Passenger zur der Datenbank hinzu
+	 * Fügt einen neuen Passenger zur der Datenbank hinzu
 	 * @param name
 	 * @param lastname
 	 * @param row
@@ -188,7 +189,7 @@ public class DatabaseConnection {
 	}
 	
 	/**
-	 * Bekommt vollen Airlinenamen mittels dem Airlinekuerzel
+	 * Bekommt vollen Airlinenamen mittels dem Airlinekürzel
 	 * @param id
 	 * @return String mit dem Airlinenamen
 	 */
@@ -196,7 +197,7 @@ public class DatabaseConnection {
 		try{
 			connection = ds.getConnection();
 			Statement st = connection.createStatement();
-			ResultSet rs = st.executeQuery("SELECT name FROM airlines INNER JOIN flights ON airlines.id = flights.airline AND airlines.id = '"+id+"';");
+			ResultSet rs = st.executeQuery("SELECT name FROM airlines INNER JOIN flights ON airlines.id = flights.airline AND airlines.id = 'AA';");
 			
 			String fullname = null;
 			while(rs.next()){
@@ -213,11 +214,6 @@ public class DatabaseConnection {
 		return null;
 	}
 	
-	/**
-	 * Bekommt vollen Flugzeugnamen mittels dem Flugzeugkuerzel
-	 * @param id
-	 * @return String mit dem vollen Flugzeugnamen
-	 */
 	public String getFullPlanename(String id){
 		try{
 			connection = ds.getConnection();
@@ -239,11 +235,6 @@ public class DatabaseConnection {
 		return null;
 	}
 	
-	/**
-	 * Bekommt vollen Flughafennamen mittels dem Flughafenkuerzel
-	 * @param airportcode
-	 * @return String mit dem vollen Flughafennamen
-	 */
 	public String getFullAirportname(String airportcode){
 		try{
 			connection = ds.getConnection();

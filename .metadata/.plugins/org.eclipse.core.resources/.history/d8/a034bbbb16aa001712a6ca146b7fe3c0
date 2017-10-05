@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -243,14 +242,11 @@ public class BookingWindow implements ActionListener{
 		lastNameValue = lastNameInput.getText();
 		reiheValue = reiheInput.getText();
 		sitzeValue = sitzeInput.getText();
-		if(nameValue != null || lastNameValue != null|| reiheValue != null|| sitzeValue != null|| flightnrValue != null|| airlineValue != null){
-			try{
-				FlightWindow.dc.addPassenger(nameValue, lastNameValue, reiheValue, sitzeValue, airlineValue, flightnrValue);
-			}catch(Exception exc){
-				exc.printStackTrace();
-			}
-		}else{
-			JOptionPane.showMessageDialog(null, "Bitte Felder vollständig ausfüllen!");
+		if(nameValue != null || lastNameValue != null|| reiheValue != null|| sitzeValue != null|| flightnrValue != null|| airlineValue != null)
+		try{
+			FlightWindow.dc.addPassenger(nameValue, lastNameValue, reiheValue, sitzeValue, airlineValue, flightnrValue);
+		}catch(Exception exc){
+			exc.printStackTrace();
 		}
 	}
 }

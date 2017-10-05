@@ -149,7 +149,6 @@ public class FlightWindow implements ActionListener{
 			}
 		};
 		possflightsTable = new JTable(model);
-		//Wrapt Table in einen ScrollPane um es anzuzeigen
 		tablePane = new JScrollPane(possflightsTable);
 		pane.add(tablePane, c);
 		
@@ -175,7 +174,7 @@ public class FlightWindow implements ActionListener{
 	}
 	
 	/**
-	 * Fragt Datenbank nach den Flughaefen in einem Land ab
+	 * Um dynamisch eine Liste zu erstellen
 	 * @param country
 	 * @return String Array von den Flughäfen eines Landes
 	 */
@@ -183,23 +182,11 @@ public class FlightWindow implements ActionListener{
 		return dc.getAirportsCountry(country);
 	}
 	
-	/**
-	 * Connected zur Datenbank, wird in DatabaseWindow aufgerufen mit den entsprechenden Parameter
-	 * Damit man die Datenbank Connection im FlightWindow aufbaut und einspeichern kann
-	 * @param hostname
-	 * @param port
-	 * @param user
-	 * @param password
-	 * @param databasename
-	 */
 	public static void connectToDatabase(String hostname, String port, String user, String password, String databasename){
 		dc = new DatabaseConnection(hostname,port,user,password,databasename);
 		FlightWindow fw = new FlightWindow();
 	}
 	
-	/**
-	 * ActionListener der, je nach auswählten Feld, die entsprechend nächsten List- bzw Tablleneinträge dynamisch aus der Datenbank ausliest und einfügt
-	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("countrySelect1") || e.getActionCommand().equals("countrySelect2")){
@@ -247,9 +234,6 @@ public class FlightWindow implements ActionListener{
 							ArrayList<Object[]> ar = dc.getFlights(depAirportCode, destAirportCode);
 							model.addRow(ar.get(i));
 							possflightsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-								/**
-								 * Wenn User auf die Tabelle drückt wird BookingWindow aufgerufen
-								 */
 								@Override
 								public void valueChanged(ListSelectionEvent e) {
 									if(e.getValueIsAdjusting()){
@@ -278,10 +262,6 @@ public class FlightWindow implements ActionListener{
 		}
 	}
 	
-	/**
-	 * Main methode
-	 * @param args
-	 */
 	public static void main(String[] args){
 		dw = new DatabaseWindow();
 	}

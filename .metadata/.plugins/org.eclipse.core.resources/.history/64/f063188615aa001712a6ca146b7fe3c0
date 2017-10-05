@@ -94,6 +94,7 @@ public class FlightWindow implements ActionListener{
 		countrieDrop2.addActionListener(this);
 		pane.add(countrieDrop2,c);
 		
+		
 		c.gridx = 0;
 		c.gridy = 2;
 		c.weightx=1.;
@@ -109,7 +110,7 @@ public class FlightWindow implements ActionListener{
 		c.weightx=1.;
 		
 		//Dropdown Liste für Flughaefen dynamisch erzeugt nachdem user Land ausgewählt hat
-		//airportAr1 ist ein String Array von Flughaefen in einem Land
+		//airportList ist ein String Array von Flughaefen in einem Land
 		airportAr1 = null;
 		airportDrop1 = new JComboBox<String>();
 		airportDrop1.setActionCommand("airportDrop1");
@@ -120,7 +121,6 @@ public class FlightWindow implements ActionListener{
 		c.gridy = 3;
 		c.weightx=1.;
 		
-		//airportAr2 ist ein String Array von Flughaefen in einem Land
 		airportAr2 = null;
 		airportDrop2 = new JComboBox<String>();
 		airportDrop2.setActionCommand("airportDrop2");
@@ -136,7 +136,6 @@ public class FlightWindow implements ActionListener{
 		possibleflightsLabel.setFont(possibleflightsLabel.getFont().deriveFont(32.0f));
 		pane.add(possibleflightsLabel, c);
 		
-		//Erstellt ein TableModel mit Anschriften aber keinen rows, zudem kann man die Zellen nicht bearbeiten
 		c.gridx = 0;
 		c.gridy = 5;
 		c.weightx=1.0;
@@ -149,7 +148,6 @@ public class FlightWindow implements ActionListener{
 			}
 		};
 		possflightsTable = new JTable(model);
-		//Wrapt Table in einen ScrollPane um es anzuzeigen
 		tablePane = new JScrollPane(possflightsTable);
 		pane.add(tablePane, c);
 		
@@ -175,7 +173,7 @@ public class FlightWindow implements ActionListener{
 	}
 	
 	/**
-	 * Fragt Datenbank nach den Flughaefen in einem Land ab
+	 * Um dynamisch eine Liste zu erstellen
 	 * @param country
 	 * @return String Array von den Flughäfen eines Landes
 	 */
@@ -183,23 +181,11 @@ public class FlightWindow implements ActionListener{
 		return dc.getAirportsCountry(country);
 	}
 	
-	/**
-	 * Connected zur Datenbank, wird in DatabaseWindow aufgerufen mit den entsprechenden Parameter
-	 * Damit man die Datenbank Connection im FlightWindow aufbaut und einspeichern kann
-	 * @param hostname
-	 * @param port
-	 * @param user
-	 * @param password
-	 * @param databasename
-	 */
 	public static void connectToDatabase(String hostname, String port, String user, String password, String databasename){
 		dc = new DatabaseConnection(hostname,port,user,password,databasename);
 		FlightWindow fw = new FlightWindow();
 	}
 	
-	/**
-	 * ActionListener der, je nach auswählten Feld, die entsprechend nächsten List- bzw Tablleneinträge dynamisch aus der Datenbank ausliest und einfügt
-	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("countrySelect1") || e.getActionCommand().equals("countrySelect2")){
@@ -247,9 +233,6 @@ public class FlightWindow implements ActionListener{
 							ArrayList<Object[]> ar = dc.getFlights(depAirportCode, destAirportCode);
 							model.addRow(ar.get(i));
 							possflightsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-								/**
-								 * Wenn User auf die Tabelle drückt wird BookingWindow aufgerufen
-								 */
 								@Override
 								public void valueChanged(ListSelectionEvent e) {
 									if(e.getValueIsAdjusting()){
@@ -278,10 +261,6 @@ public class FlightWindow implements ActionListener{
 		}
 	}
 	
-	/**
-	 * Main methode
-	 * @param args
-	 */
 	public static void main(String[] args){
 		dw = new DatabaseWindow();
 	}

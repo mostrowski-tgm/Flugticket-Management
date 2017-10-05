@@ -22,6 +22,7 @@
 		$db_password = $_COOKIE['password'];
 		$db_data = $_COOKIE['typ'];
 		$db_port = $_COOKIE['port'];
+		$first = TRUE;
 		
 		try{			
 		$conn = new PDO("$db_data:$db_port=$db_servername;dbname=$db_name", $db_username, $db_password);
@@ -30,7 +31,12 @@
 		$stmt = $conn -> prepare("SELECT * FROM flights WHERE flightnr LIKE :flugnummer");
 		
 		$stmt -> bindParam(":flugnummer", $flugnummer);
-		$flugnummer = $_POST["flugnr"];
+		if($first = TRUE){
+			$flugnummer = $_GET["flugnr"];	
+		}else{
+			$flugnummer = $_COOKIE['Flugnummer'];
+			$first = FALSE;
+		}
 		$stmt -> execute();
     
 			if($stmt -> rowCount() > 0){
@@ -49,6 +55,13 @@
 		$end_des_time_date = substr($end_des_time, 0, 10);
 		$end_des_time_clock = substr($end_des_time, 11, 8);
 		
+		
+		}
+		catch(PDOException $e) {
+		echo "Connection failed: " . $e->getMessage();
+		}
+		
+		
 		setcookie("Flugnummer", $flugnummer);
 		setcookie("Fluglinie", $airline);
 		setcookie("Flugzeugtyp", $planetyp);
@@ -59,14 +72,7 @@
 		setcookie("Abflughafen", $start_dep_air);
 		setcookie("Anflughafen", $end_des_air);
 		
-		}
-		catch(PDOException $e) {
-		echo "Connection failed: " . $e->getMessage();
-		}
-		/* 
-		Zum Darstellen von den Cookies
 		print_r($_COOKIE);
-		*/
 		?>		
 		<div class="container">
 			<div class="row">
@@ -112,7 +118,7 @@
 									$row = $result -> fetch();
 									echo $row[0];
 									echo "<br>";
-									  echo "</h3>";
+									echo "</h3>";
 								//Gibt das Abflugsdatum aus
 									echo "<h4>Datum: </h4><h5>";
 									echo $start_dep_time_date;
@@ -204,9 +210,8 @@
 									echo '<td>'.$row[1].'</td>';
 									echo '<td>'.$row[2].$row[3].'</td>';
 									echo '<td><button type="submit" class="btn btn-primary btn-danger">Entfernen des Passagieres</button></td>';
-									//Line wird gebraucht um ID zum Entfernen zu entfernen
-									//echo '<td style="visibility:hidden;"><input type="text" name="passagier_id" value="'.$row[4].'"></td>';
-									$passenger_id = $row[4];
+									//Line wird gebraucht um ID zum Entfernen zu schicken
+									echo '<td style="visibility:hidden;"><input type="text" name="pass_id" value="'.$row[4].'"></td>';
 									echo '</tr>';
 									echo '</form>';
 									$counter = $counter + 1;

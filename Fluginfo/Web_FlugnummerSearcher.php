@@ -50,7 +50,7 @@
 							</h1>							
 						</div>
 						<div class="panel-body">
-							<form action="Web_FlugData.php" method="post">
+							<form action="Web_FlugData.php" method="get">
 								<div class="row">
 									<div class="col-md-6 offset-md-3">
 										<input type="text" placeholder=" Insert Flightnummer" name="flugnr">

@@ -129,12 +129,13 @@ public class DatabaseConnection {
 			//TODO time in dd.mm.yyyy hh:mm ausgeben
 			ArrayList<Object[]> ar = new ArrayList<Object[]>();
 			while(rs.next()){
-				String[] dataParts = rs.getString(4).split("\\ ");//System.out.println(depDate);
+				String[] dataParts = rs.getString(4).split("\\ ");
+				System.out.println(dataParts[0]+", HIER DER ERSTE"+dataParts[1]);
+				//System.out.print(rs.getString(4).substring(rs.getString(4).indexOf(' ')));
+				//System.out.println(depDate);
 				SimpleDateFormat mdyFormat = new SimpleDateFormat("dd-MM-yyyy");
 				
-			    String mdy = mdyFormat.format(dataParts[0]);
-			    System.out.println(mdy);
-			    
+			   // String mdy = mdyFormat.format(depDate);
 				Object[] row = {rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)};
 				ar.add(row);
 			}

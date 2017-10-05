@@ -203,19 +203,19 @@ public class FlightWindow implements ActionListener{
 				for(int i = 0; i<airportAr2.length;i++){
 					airportDrop2.addItem(airportAr2[i]);
 				}
-				airportDrop1.setSelectedIndex(-1);
-				airportDrop2.setSelectedIndex(-1);
 				
 				JAbflughafen.setVisible(true);
 				JZielflughafen.setVisible(true);
 				airportDrop1.setVisible(true);
+				airportDrop1.setSelectedIndex(-1);
 				airportDrop2.setVisible(true);
-				
+				airportDrop2.setSelectedIndex(-1);
 				frame.pack();
 			}
 		}else if(e.getActionCommand().equals("airportDrop1") || e.getActionCommand().equals("airportDrop2")){
 			selectedAirport1 = (String) airportDrop1.getSelectedItem();
 			selectedAirport2 = (String) airportDrop2.getSelectedItem();
+			System.out.println(selectedAirport1 +","+ selectedAirport2);
 			if(selectedAirport1 != null && selectedAirport2 != null){
 				depAirportCode = dc.getAirportcode(selctedCountrie1, selectedAirport1);
 				destAirportCode = dc.getAirportcode(selctedCountrie2, selectedAirport2);
@@ -245,11 +245,9 @@ public class FlightWindow implements ActionListener{
 							tablePane.setVisible(true);
 							frame.pack();
 						}
-					}else{
-						JOptionPane.showMessageDialog(null, ("Kein Flug vorhanden!"));
 					}
 				}catch(Exception exc){
-					System.out.println("Fehler 001 aufgetreten! Bitte an den Support melden!");
+					System.out.println("Kein Flug vorhanden!");
 				}
 			}
 		}

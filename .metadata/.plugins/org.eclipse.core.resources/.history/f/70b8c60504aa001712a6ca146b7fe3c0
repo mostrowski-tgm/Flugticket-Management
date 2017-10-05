@@ -203,14 +203,13 @@ public class FlightWindow implements ActionListener{
 				for(int i = 0; i<airportAr2.length;i++){
 					airportDrop2.addItem(airportAr2[i]);
 				}
-				airportDrop1.setSelectedIndex(-1);
-				airportDrop2.setSelectedIndex(-1);
 				
 				JAbflughafen.setVisible(true);
 				JZielflughafen.setVisible(true);
 				airportDrop1.setVisible(true);
 				airportDrop2.setVisible(true);
-				
+				airportDrop1.setSelectedIndex(-1);
+				airportDrop2.setSelectedIndex(-1);
 				frame.pack();
 			}
 		}else if(e.getActionCommand().equals("airportDrop1") || e.getActionCommand().equals("airportDrop2")){
@@ -226,11 +225,11 @@ public class FlightWindow implements ActionListener{
 						model.removeRow(i);
 					}
 					
-					int lengthOfFlights = dc.getFlights("CMA", "IZT").size();
+					int lengthOfFlights = dc.getFlights(depAirportCode, destAirportCode).size();
 					if(lengthOfFlights != 0){
 						model.fireTableRowsDeleted(0, model.getRowCount());
 						for(int i = 0; i<lengthOfFlights;i++){
-							ArrayList<Object[]> ar = dc.getFlights("CMA", "IZT");
+							ArrayList<Object[]> ar = dc.getFlights(depAirportCode, destAirportCode);
 							model.addRow(ar.get(i));
 							possflightsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 								@Override
@@ -245,11 +244,9 @@ public class FlightWindow implements ActionListener{
 							tablePane.setVisible(true);
 							frame.pack();
 						}
-					}else{
-						JOptionPane.showMessageDialog(null, ("Kein Flug vorhanden!"));
 					}
 				}catch(Exception exc){
-					System.out.println("Fehler 001 aufgetreten! Bitte an den Support melden!");
+					System.out.println("Kein Flug vorhanden!");
 				}
 			}
 		}

@@ -32,14 +32,13 @@ public class FlightWindow implements ActionListener{
 	private static JComboBox<String> airportDrop2;
 	private static String selectedAirport1;
 	private static String selectedAirport2;
-	private static JLabel possibleflightsLabel;
+	
 	private static String[] columnNames = {"Airline", "Flightnumber", "Departure Airport", "Departure Time", "Destination Airport", "Destination Time", "Planetype"};
 	private static String depAirportCode;
 	private static String destAirportCode;
 	private static DefaultTableModel model;
 	private static String[] possflightAr;
 	private static JTable possflightsTable;
-	private static JScrollPane tablePane;
 	
 	private static BookingWindow bw;
 	private static DatabaseWindow dw;
@@ -73,7 +72,6 @@ public class FlightWindow implements ActionListener{
 		//Abflugland bestimmen
 		countrieList1 = dc.getAllCountries();
 		countrieDrop1 = new JComboBox<String>(countrieList1);
-		countrieDrop1.setSelectedIndex(-1);
 		countrieDrop1.setActionCommand("countrySelect1");
 		countrieDrop1.addActionListener(this);
 		pane.add(countrieDrop1,c);
@@ -85,7 +83,6 @@ public class FlightWindow implements ActionListener{
 		//Zielland bestimmen
 		countrieList2 = dc.getAllCountries();
 		countrieDrop2 = new JComboBox<String>(countrieList2);
-		countrieDrop2.setSelectedIndex(-1);
 		countrieDrop2.setActionCommand("countrySelect2");
 		countrieDrop2.addActionListener(this);
 		pane.add(countrieDrop2,c);
@@ -131,7 +128,7 @@ public class FlightWindow implements ActionListener{
 		c.gridy = 4;
 		c.gridwidth = 2;
 		c.weightx=1.0;
-		possibleflightsLabel = new JLabel("Möglichen Flüge:");
+		JLabel possibleflightsLabel = new JLabel("Möglichen Flüge:");
 		possibleflightsLabel.setFont(possibleflightsLabel.getFont().deriveFont(32.0f));
 		pane.add(possibleflightsLabel, c);
 		
@@ -147,11 +144,8 @@ public class FlightWindow implements ActionListener{
 			}
 		};
 		possflightsTable = new JTable(model);
-		tablePane = new JScrollPane(possflightsTable);
-		pane.add(tablePane, c);
+		pane.add(new JScrollPane(possflightsTable), c);
 		
-
-		setInvisble();
 		frame.add(pane);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
@@ -161,14 +155,15 @@ public class FlightWindow implements ActionListener{
 	/**
 	 * Setzt alle Felder, außer die Landauswahl mit dazugehöriger JLabel auf, unsichtbar
 	 */
-	public static void setInvisble(){
+	public static void init(){
 		//TODO MAKierung
 		JAbflughafen.setVisible(false);
 		JZielflughafen.setVisible(false);
+		countrieDrop1.setVisible(false);
+		countrieDrop2.setVisible(false);
 		airportDrop1.setVisible(false);
 		airportDrop2.setVisible(false);
-		possibleflightsLabel.setVisible(false);
-		tablePane.setVisible(false);
+		possflightsTable.setVisible(false);
 	}
 	
 	/**
@@ -187,40 +182,27 @@ public class FlightWindow implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("countrySelect1") || e.getActionCommand().equals("countrySelect2")){
+		if(e.getActionCommand().equals("countrySelect1")){
 			selctedCountrie1 = (String) countrieDrop1.getSelectedItem();
+			airportAr1 = dc.getAirportsCountry(selctedCountrie1);
+			airportDrop1.removeAllItems();
+			for(int i = 0; i<airportAr1.length;i++){
+				airportDrop1.addItem(airportAr1[i]);
+			}
+		}else if(e.getActionCommand().equals("countrySelect2")){
 			selctedCountrie2 = (String) countrieDrop2.getSelectedItem();
-			
-			if(selctedCountrie1 != null && selctedCountrie2 != null){
-				airportAr1 = dc.getAirportsCountry(selctedCountrie1);
-				airportDrop1.removeAllItems();
-				for(int i = 0; i<airportAr1.length;i++){
-					airportDrop1.addItem(airportAr1[i]);
-				}
-				
-				airportAr2 = dc.getAirportsCountry(selctedCountrie2);
-				airportDrop2.removeAllItems();
-				for(int i = 0; i<airportAr2.length;i++){
-					airportDrop2.addItem(airportAr2[i]);
-				}
-				airportDrop1.setSelectedIndex(-1);
-				airportDrop2.setSelectedIndex(-1);
-				
-				JAbflughafen.setVisible(true);
-				JZielflughafen.setVisible(true);
-				airportDrop1.setVisible(true);
-				airportDrop2.setVisible(true);
-				
-				frame.pack();
+			airportAr2 = dc.getAirportsCountry(selctedCountrie2);
+			airportDrop2.removeAllItems();
+			for(int i = 0; i<airportAr2.length;i++){
+				airportDrop2.addItem(airportAr2[i]);
 			}
 		}else if(e.getActionCommand().equals("airportDrop1") || e.getActionCommand().equals("airportDrop2")){
 			selectedAirport1 = (String) airportDrop1.getSelectedItem();
 			selectedAirport2 = (String) airportDrop2.getSelectedItem();
+			
 			if(selectedAirport1 != null && selectedAirport2 != null){
 				depAirportCode = dc.getAirportcode(selctedCountrie1, selectedAirport1);
 				destAirportCode = dc.getAirportcode(selctedCountrie2, selectedAirport2);
-				
-				
 				try{
 					for(int i = 0; i<model.getRowCount(); i++){
 						model.removeRow(i);
@@ -241,15 +223,11 @@ public class FlightWindow implements ActionListener{
 									
 								}
 							});
-							possibleflightsLabel.setVisible(true);
-							tablePane.setVisible(true);
 							frame.pack();
 						}
-					}else{
-						JOptionPane.showMessageDialog(null, ("Kein Flug vorhanden!"));
 					}
 				}catch(Exception exc){
-					System.out.println("Fehler 001 aufgetreten! Bitte an den Support melden!");
+					System.out.println("Kein Flug vorhanden!");
 				}
 			}
 		}

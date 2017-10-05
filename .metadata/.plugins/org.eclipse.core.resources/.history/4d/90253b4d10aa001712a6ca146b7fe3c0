@@ -109,7 +109,7 @@ public class BookingWindow implements ActionListener{
 		c.gridy = 4;
 		c.weightx=1.;
 	    c.fill=GridBagConstraints.HORIZONTAL;
-	    JLabel airlineTimeValue = new JLabel((airline));
+		JLabel airlineTimeValue = new JLabel(airline);
 		bPanel.add(airlineTimeValue,c);
 		
 		c.gridx = 0;

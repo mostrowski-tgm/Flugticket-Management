@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -130,21 +129,35 @@ public class DatabaseConnection {
 			//TODO time in dd.mm.yyyy hh:mm ausgeben
 			ArrayList<Object[]> ar = new ArrayList<Object[]>();
 			while(rs.next()){
-				SimpleDateFormat sFromDep = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				SimpleDateFormat sToDep = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-				String dateFormattedDep = sToDep.format(sFromDep.parse(rs.getString(4)));
-
-				SimpleDateFormat sFromDest = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				SimpleDateFormat sToDest = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-				String dateFormattedDest = sToDest.format(sFromDest.parse(rs.getString(6)));
-				System.out.println(dateFormattedDest);
-				Object[] row = {getFullAirlinesname(rs.getString(1)),rs.getString(2),rs.getString(3),dateFormattedDep,rs.getString(5),dateFormattedDest,getFullPlanename(rs.getString(7))};
+				SimpleDateFormat sFrom = new SimpleDateFormat("yyyy-MM-dd");
+				SimpleDateFormat sTo = new SimpleDateFormat("dd-MM-yyyy");
+				
+			   // String mdy = mdyFormat.format(dest);
+			    System.out.println(mdy);
+			    
+				Object[] row = {rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)};
 				ar.add(row);
 			}
+			
+			
+//			String[][] flightResult = null;
+//			for(int y = 0; y<ar.size();y++){
+//				for(int x = 0; x<7;x++){
+//					flightResult = ar.toArray(new String[0][0]);
+//				}
+//			}
+//			
+//			//Testzwecke
+//			for(int y = 0; y<ar.size();y++){
+//				for(int x = 0; x<7;x++){
+//					System.out.println(flightResult[y][x]);
+//				}
+//			}
+			
 			//aufräumen
 			rs.close(); st.close(); connection.close();
 			return ar;
-		}catch(SQLException | ParseException e){
+		}catch(SQLException e){
 			JOptionPane.showMessageDialog(null, "Connection konnte nicht mit der Database aufgebaut werden!");
 		}
 		return null;
@@ -174,67 +187,5 @@ public class DatabaseConnection {
 		}
 	}
 	
-	public String getFullAirlinesname(String id){
-		try{
-			connection = ds.getConnection();
-			Statement st = connection.createStatement();
-			ResultSet rs = st.executeQuery("SELECT name FROM airlines INNER JOIN flights ON airlines.id = flights.airline AND airlines.id = 'AA';");
-			
-			String fullname = null;
-			while(rs.next()){
-				fullname = (rs.getString(1));
-			}
-			//System.out.println(airportCode);
-			//aufräumen
-			rs.close(); st.close(); connection.close();
-			return fullname;
-		}catch(SQLException e){
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Connection konnte nicht mit der Database aufgebaut werden!");
-		}
-		return null;
-	}
-	
-	public String getFullPlanename(String id){
-		try{
-			connection = ds.getConnection();
-			Statement st = connection.createStatement();
-			ResultSet rs = st.executeQuery("SELECT manufacturer, type FROM planes INNER JOIN flights ON planes.id = flights.planetype AND planes.id = "+id+" LIMIT 1;");
-			
-			String fullname = null;
-			while(rs.next()){
-				fullname = (rs.getString(1)+" "+rs.getString(2));
-			}
-			//System.out.println(airportCode);
-			//aufräumen
-			rs.close(); st.close(); connection.close();
-			return fullname;
-		}catch(SQLException e){
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Connection konnte nicht mit der Database aufgebaut werden!");
-		}
-		return null;
-	}
-	
-	public String getFullAirportname(String airportcode){
-		try{
-			connection = ds.getConnection();
-			Statement st = connection.createStatement();
-			ResultSet rs = st.executeQuery("SELECT name FROM airports WHERE airports.airportcode = '"+airportcode+"';");
-			
-			String fullname = null;
-			while(rs.next()){
-				fullname = (rs.getString(1));
-			}
-			//System.out.println(airportCode);
-			//aufräumen
-			rs.close(); st.close(); connection.close();
-			return fullname;
-		}catch(SQLException e){
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Connection konnte nicht mit der Database aufgebaut werden!");
-		}
-		return null;
-	}
 	
 }

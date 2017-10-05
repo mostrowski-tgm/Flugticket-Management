@@ -136,9 +136,9 @@ public class DatabaseConnection {
 
 				SimpleDateFormat sFromDest = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				SimpleDateFormat sToDest = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-				String dateFormattedDest = sToDest.format(sFromDest.parse(rs.getString(6)));
+				String dateFormattedDest = sToDest.format(sFromDest.parse(rs.getString(4)));
 				System.out.println(dateFormattedDest);
-				Object[] row = {getFullAirlinesname(rs.getString(1)),rs.getString(2),rs.getString(3),dateFormattedDep,rs.getString(5),dateFormattedDest,getFullPlanename(rs.getString(7))};
+				Object[] row = {getFullAirlinesname(rs.getString(1)),rs.getString(2),rs.getString(3),dateFormattedDest,rs.getString(5),dateFormattedDep,getFullPlanename(rs.getString(7))};
 				ar.add(row);
 			}
 			//aufräumen

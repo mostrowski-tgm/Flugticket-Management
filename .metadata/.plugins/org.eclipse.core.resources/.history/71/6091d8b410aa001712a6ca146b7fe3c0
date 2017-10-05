@@ -136,9 +136,9 @@ public class DatabaseConnection {
 
 				SimpleDateFormat sFromDest = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 				SimpleDateFormat sToDest = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-				String dateFormattedDest = sToDest.format(sFromDest.parse(rs.getString(6)));
-				System.out.println(dateFormattedDest);
-				Object[] row = {getFullAirlinesname(rs.getString(1)),rs.getString(2),rs.getString(3),dateFormattedDep,rs.getString(5),dateFormattedDest,getFullPlanename(rs.getString(7))};
+				String dateFormattedDest = sToDest.format(sFromDest.parse(rs.getString(4)));
+
+				Object[] row = {rs.getString(1),rs.getString(2),rs.getString(3),dateFormattedDest,rs.getString(5),dateFormattedDep,rs.getString(7)};
 				ar.add(row);
 			}
 			//aufräumen
@@ -174,15 +174,15 @@ public class DatabaseConnection {
 		}
 	}
 	
-	public String getFullAirlinesname(String id){
+	public String getFullAirportname(String id){
 		try{
 			connection = ds.getConnection();
 			Statement st = connection.createStatement();
-			ResultSet rs = st.executeQuery("SELECT name FROM airlines INNER JOIN flights ON airlines.id = flights.airline AND airlines.id = 'AA';");
+			ResultSet rs = st.executeQuery("SELECT name FROM airlines INNER JOIN flightsON airlines.id = flights.airline AND airlines.id = 'AA';");
 			
 			String fullname = null;
 			while(rs.next()){
-				fullname = (rs.getString(1));
+				fullname = (rs.getString(0));
 			}
 			//System.out.println(airportCode);
 			//aufräumen
@@ -194,47 +194,4 @@ public class DatabaseConnection {
 		}
 		return null;
 	}
-	
-	public String getFullPlanename(String id){
-		try{
-			connection = ds.getConnection();
-			Statement st = connection.createStatement();
-			ResultSet rs = st.executeQuery("SELECT manufacturer, type FROM planes INNER JOIN flights ON planes.id = flights.planetype AND planes.id = "+id+" LIMIT 1;");
-			
-			String fullname = null;
-			while(rs.next()){
-				fullname = (rs.getString(1)+" "+rs.getString(2));
-			}
-			//System.out.println(airportCode);
-			//aufräumen
-			rs.close(); st.close(); connection.close();
-			return fullname;
-		}catch(SQLException e){
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Connection konnte nicht mit der Database aufgebaut werden!");
-		}
-		return null;
-	}
-	
-	public String getFullAirportname(String airportcode){
-		try{
-			connection = ds.getConnection();
-			Statement st = connection.createStatement();
-			ResultSet rs = st.executeQuery("SELECT name FROM airports WHERE airports.airportcode = '"+airportcode+"';");
-			
-			String fullname = null;
-			while(rs.next()){
-				fullname = (rs.getString(1));
-			}
-			//System.out.println(airportCode);
-			//aufräumen
-			rs.close(); st.close(); connection.close();
-			return fullname;
-		}catch(SQLException e){
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Connection konnte nicht mit der Database aufgebaut werden!");
-		}
-		return null;
-	}
-	
 }

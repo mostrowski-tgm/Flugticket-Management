@@ -172,7 +172,7 @@ public class FlightWindow implements ActionListener{
 	}
 	
 	/**
-	 * Um dynamisch eine Liste zu erstellen
+	 * Um dynamisch eine Liste zu erstellen ist diese Funktion seperat nötig
 	 * @param country
 	 * @return String Array von den Flughäfen eines Landes
 	 */
@@ -200,7 +200,7 @@ public class FlightWindow implements ActionListener{
 				
 				airportAr2 = dc.getAirportsCountry(selctedCountrie2);
 				airportDrop2.removeAllItems();
-				airportDrop1.setSelectedIndex(-1);
+				airportDrop2.setSelectedIndex(-1);
 				for(int i = 0; i<airportAr2.length;i++){
 					airportDrop2.addItem(airportAr2[i]);
 				}
@@ -235,13 +235,7 @@ public class FlightWindow implements ActionListener{
 								@Override
 								public void valueChanged(ListSelectionEvent e) {
 									if(e.getValueIsAdjusting()){
-										bw = new BookingWindow(possflightsTable.getValueAt(possflightsTable.getSelectedRow(),2).toString()
-												,possflightsTable.getValueAt(possflightsTable.getSelectedRow(),4).toString()
-												,possflightsTable.getValueAt(possflightsTable.getSelectedRow(),3).toString()
-												,possflightsTable.getValueAt(possflightsTable.getSelectedRow(),5).toString()
-												,possflightsTable.getValueAt(possflightsTable.getSelectedRow(),0).toString()
-												,possflightsTable.getValueAt(possflightsTable.getSelectedRow(),6).toString()
-												,possflightsTable.getValueAt(possflightsTable.getSelectedRow(),1).toString());
+										bw = new BookingWindow(possflightsTable.getValueAt(possflightsTable.getSelectedRow(),2).toString(),possflightsTable.getValueAt(possflightsTable.getSelectedRow(),4).toString(),possflightsTable.getValueAt(possflightsTable.getSelectedRow(),3).toString(),possflightsTable.getValueAt(possflightsTable.getSelectedRow(),5).toString(),possflightsTable.getValueAt(possflightsTable.getSelectedRow(),0).toString(),possflightsTable.getValueAt(possflightsTable.getSelectedRow(),6).toString(),possflightsTable.getValueAt(possflightsTable.getSelectedRow(),1).toString());
 									}
 									
 								}

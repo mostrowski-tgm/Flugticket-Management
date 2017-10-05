@@ -9,7 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
-import javax.xml.bind.ParseConversionEvent;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
@@ -161,20 +160,15 @@ public class DatabaseConnection {
 			Statement st = connection.createStatement();
 			ResultSet rs = st.executeQuery("SELECT max(id) FROM passengers;");
 			
-			int freeID = 0;
-			while(rs.next()){
-				freeID = rs.getInt("max(id)")+1;
-			}
-			
-			
+			int freeID = rs.getInt(1)+1;
+			System.out.println(freeID);
 			rs.close(); st.close();
-			PreparedStatement statment = connection.prepareStatement("INSERT INTO passengers VALUES("+freeID+",'"+name+"','"+lastname+"','"+airline+"','"+flightnr+"',"+Integer.parseInt(row)+",'"+seat+"')");
 			
+			PreparedStatement statment = connection.prepareStatement("INSERT INTO passengers VALUES(`"+freeID+"`,`"+name+"`,`"+lastname+"`,`"+airline+"`,`"+flightnr+"`,`"+row+"`,`"+seat+"`) VALUES");
 			statment.execute();
 			
 			JOptionPane.showMessageDialog(null, "Erfolgreich gebucht!");
 		}catch(SQLException e){
-			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Es konnte nicht gebucht werden!");
 		}
 	}

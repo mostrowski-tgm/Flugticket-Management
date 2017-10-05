@@ -168,7 +168,8 @@ public class DatabaseConnection {
 			
 			
 			rs.close(); st.close();
-			PreparedStatement statment = connection.prepareStatement("INSERT INTO passengers VALUES("+freeID+",'"+name+"','"+lastname+"','"+airline+"','"+flightnr+"',"+Integer.parseInt(row)+",'"+seat+"')");
+			System.out.println("INSERT INTO passengers VALUES("+freeID+",`"+name+"`,`"+lastname+"`,`"+airline+"`,`"+flightnr+"`,"+Integer.parseInt(row)+",`"+seat+"`)");
+			PreparedStatement statment = connection.prepareStatement("INSERT INTO passengers VALUES("+freeID+",`"+name+"`,`"+lastname+"`,`"+airline+"`,`"+flightnr+"`,"+Integer.parseInt(row)+",`"+seat+"`)");
 			
 			statment.execute();
 			

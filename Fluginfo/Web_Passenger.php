@@ -6,7 +6,7 @@
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 		
 		<title>
-            Flug Data
+            FlugManager - Passagier
         </title>
 		
 		<link href="css/bootstrap.min.css" rel="stylesheet">

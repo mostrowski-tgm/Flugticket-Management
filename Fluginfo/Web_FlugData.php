@@ -36,10 +36,10 @@
 			if($stmt -> rowCount() > 0){
 				$flight = $stmt -> fetch();
 				$airline = $flight[0];
-				$start_arp = $flight[1];
-				$start_apc = $flight[2];
-				$dest_arp = $flight[3];
-				$dest_apc = $flight[4];
+				$start_arp = $flight[2];
+				$start_apc = $flight[3];
+				$dest_arp = $flight[4];
+				$dest_apc = $flight[5];
 			}
 		}
 		catch(PDOException $e) {
@@ -61,8 +61,11 @@
         <div class="col-xs-12">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h4>Flugnummer: <?php echo strtoupper($flugnummer); ?></h4>
+              <h4>Flugnummer: <?php echo strtoupper($airline); echo strtoupper($flugnummer); ?></h4>
             </div>
+			<?php echo strtoupper($start_arp); echo strtoupper($start_apc); ?>
+			
+			<?php echo strtoupper($dest_arp); echo strtoupper($dest_apc); ?>
           </div>
         </div>
       </div>

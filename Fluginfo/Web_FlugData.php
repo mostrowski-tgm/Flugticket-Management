@@ -40,6 +40,7 @@
 				$start_dep_air = $flight[3];
 				$end_des_time = $flight[4];
 				$end_des_air = $flight[5];
+				$planetyp = $flight[6];
 			}
 			
 		$start_dep_time_date = substr($start_dep_time, 0, 10);
@@ -60,7 +61,12 @@
 		<div class="container">
 			<div class="row">
 				<div class="text-center">
-					<h1>Fluginformationen zum Flug <?php echo strtoupper($flugnummer); echo strtoupper($airline); ?></h1>
+					<h1>Fluginformationen zum Flug 
+					<?php 
+					$result = $conn -> query("SELECT name FROM airlines WHERE id LIKE '$airline'");
+					$row = $result -> fetch();
+					$airlinename = $row[0];
+					echo $airlinename; echo " ("; echo strtoupper($airline); echo ") "; echo $flugnummer; ?></h1>
 				</div>
 			</div>
 			<div class="row">
@@ -160,9 +166,69 @@
 				</div>
 			</div>
 			<div class="row">
-			
+				
 			</div>
-		</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							Passagiere des Flugs <?php echo $airlinename; echo " ("; echo strtoupper($airline); echo ") "; echo $flugnummer; ?>
+						</div>
+						<div class="panel-body">
+							<table class="table table-bordered">
+								<tr>
+									<th>
+										Vorname
+									</th>
+									<th>
+										Nachname
+									</th>
+									<th colspan="2">
+										Sitznummer
+									</th>
+								</tr>
+								<?php
+								//Die gefundenen Passagiere werden in die Tabelle eingetragen und gezählt
+								$result = $conn -> query("SELECT firstname, lastname, rownr, seatposition, id FROM passengers WHERE airline LIKE '$airline' AND flightnr = $flugnummer ORDER BY 3 ASC, 4 ASC");
+								$counter = 0;
+								while($row = $result -> fetch()){
+									echo '<form method="POST" action="Web_Passenger.php">';
+									echo '<tr><td>'.$row[0].'</td>';
+									echo '<td>'.$row[1].'</td>';
+									echo '<td>'.$row[2].$row[3].'</td>';
+									echo '<td><button type="submit" class="btn btn-danger">Entfernen des Passagieres</button></td>';
+									$passenger_id = $row[4];
+									echo '</tr>';
+									echo '</form>';
+									$counter = $counter + 1;
+								}
+								?>
+								<tr>
+									<td colspan="2">
+									<strong>Anzahl aller Sitze im Flugzeug</strong>
+									</td>
+									<td colspan="2">
+									<?php
+									$result = $conn -> query("SELECT maxseats FROM planes WHERE id LIKE $planetyp");
+									$row = $result -> fetch();
+									echo $row[0];
+									?>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+									<strong>Anzahl aller Passagiere</strong>
+									</td>
+									<td colspan="2">
+									<?php echo $counter ?>
+									</td>
+								</tr>
+							</table>
+							
+						</div>
+					</div>
+                </div>        
+            </div>
+        </div>
 	</body>
-</html>
 </html>

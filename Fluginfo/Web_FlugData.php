@@ -24,7 +24,7 @@
 		$db_port = $_COOKIE['port'];
 		
 		try{			
-		$conn = new PDO("$db_data:host=$db_servername;dbname=$db_name", $db_username, $db_password);
+		$conn = new PDO("$db_data:$db_port=$db_servername;dbname=$db_name", $db_username, $db_password);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
 		$stmt = $conn -> prepare("SELECT * FROM flights WHERE flightnr LIKE :flugnummer");
@@ -48,6 +48,16 @@
 		
 		$end_des_time_date = substr($end_des_time, 0, 10);
 		$end_des_time_clock = substr($end_des_time, 11, 8);
+		
+		setcookie("Flugnummer", $flugnummer);
+		setcookie("Fluglinie", $airline);
+		setcookie("Flugzeugtyp", $planetyp);
+		setcookie("Abflugsdatum", $start_dep_time_date);
+		setcookie("Abflugszeit", $start_dep_time_clock);
+		setcookie("Anflugsdatum", $end_des_time_date);
+		setcookie("Anflugszeit", $end_des_time_clock);
+		setcookie("Abflughafen", $start_dep_air);
+		setcookie("Anflughafen", $end_des_air);
 		
 		}
 		catch(PDOException $e) {
@@ -166,9 +176,6 @@
 				</div>
 			</div>
 			<div class="row">
-				
-			</div>
-			<div class="row">
 				<div class="col-xs-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -196,7 +203,9 @@
 									echo '<tr><td>'.$row[0].'</td>';
 									echo '<td>'.$row[1].'</td>';
 									echo '<td>'.$row[2].$row[3].'</td>';
-									echo '<td><button type="submit" class="btn btn-danger">Entfernen des Passagieres</button></td>';
+									echo '<td><button type="submit" class="btn btn-primary btn-danger">Entfernen des Passagieres</button></td>';
+									//Line wird gebraucht um ID zum Entfernen zu entfernen
+									//echo '<td style="visibility:hidden;"><input type="text" name="passagier_id" value="'.$row[4].'"></td>';
 									$passenger_id = $row[4];
 									echo '</tr>';
 									echo '</form>';
@@ -211,7 +220,8 @@
 									<?php
 									$result = $conn -> query("SELECT maxseats FROM planes WHERE id LIKE $planetyp");
 									$row = $result -> fetch();
-									echo $row[0];
+									$maxseat = $row[0];
+									echo $maxseat;
 									?>
 									</td>
 								</tr>
@@ -221,6 +231,17 @@
 									</td>
 									<td colspan="2">
 									<?php echo $counter ?>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+									<strong>Anzahl aller freien Plätze</strong>
+									</td>
+									<td colspan="2">
+									<?php
+									$frei = $maxseat - $counter;
+									echo $frei 
+									?>
 									</td>
 								</tr>
 							</table>

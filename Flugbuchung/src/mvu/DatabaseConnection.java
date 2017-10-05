@@ -152,4 +152,20 @@ public class DatabaseConnection {
 		}
 		return null;
 	}
+	
+	public void addPassenger(){
+		try{
+			connection = ds.getConnection();
+			Statement st = connection.createStatement();
+			ResultSet rs = st.executeQuery("SELECT max(id) FROM passengers;");
+			
+			int freeId = rs.getInt(1)+1;
+			rs.close(); st.close();
+			
+		}catch(SQLException e){
+			JOptionPane.showMessageDialog(null, "Connection konnte nicht mit der Database aufgebaut werden!");
+		}
+	}
+	
+	
 }

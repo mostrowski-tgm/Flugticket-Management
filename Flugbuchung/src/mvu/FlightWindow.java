@@ -42,7 +42,7 @@ public class FlightWindow implements ActionListener{
 	private static String[] possflightAr;
 	private static JTable possflightsTable;
 	
-	private static JFrame bFrame;
+	private static BookingWindow bw;
 	
 	private static DatabaseWindow dw;
 	private static DatabaseConnection dc;
@@ -186,7 +186,6 @@ public class FlightWindow implements ActionListener{
 				airportDrop2.addItem(airportAr2[i]);
 			}
 		}else if(e.getActionCommand().equals("airportDrop1") || e.getActionCommand().equals("airportDrop2")){
-
 			selectedAirport1 = (String) airportDrop1.getSelectedItem();
 			selectedAirport2 = (String) airportDrop2.getSelectedItem();
 			if(selectedAirport1 != null && selectedAirport2 != null){
@@ -197,56 +196,18 @@ public class FlightWindow implements ActionListener{
 					for(int i = 0; i<model.getRowCount(); i++)model.removeRow(i);
 					int lengthOfFlights = dc.getFlights("CMA", "IZT").size();
 					if(lengthOfFlights != 0){
+						model.fireTableRowsDeleted(0, model.getRowCount());
 						for(int i = 0; i<lengthOfFlights;i++){
 							//ArrayList<Object[]> ar = dc.getFlights(depAirportCode, destAirportCode);
 							ArrayList<Object[]> ar = dc.getFlights("CMA", "IZT");
-							
 							model.addRow(ar.get(i));
 							possflightsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 								@Override
 								public void valueChanged(ListSelectionEvent e) {
-									bFrame = new JFrame("Booking");
-									frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+									if(e.getValueIsAdjusting()){
+										bw = new BookingWindow(possflightsTable.getValueAt(possflightsTable.getSelectedRow(),2).toString(),possflightsTable.getValueAt(possflightsTable.getSelectedRow(),4).toString(),possflightsTable.getValueAt(possflightsTable.getSelectedRow(),3).toString(),possflightsTable.getValueAt(possflightsTable.getSelectedRow(),5).toString(),possflightsTable.getValueAt(possflightsTable.getSelectedRow(),1).toString(),possflightsTable.getValueAt(possflightsTable.getSelectedRow(),6).toString(),possflightsTable.getValueAt(possflightsTable.getSelectedRow(),1).toString());
+									}
 									
-									JPanel bPanel = new JPanel();
-									bPanel.setLayout(new GridBagLayout());
-		
-									GridBagConstraints c = new GridBagConstraints();
-									c.insets = new Insets(5,5,5,5);
-									
-									c.gridx = 0;
-									c.gridy = 0;
-									c.weightx=1.;
-								    c.fill=GridBagConstraints.HORIZONTAL;
-									JLabel fromLabel = new JLabel("From:");
-									bPanel.add(fromLabel,c);
-									
-									c.gridx = 1;
-									c.gridy = 0;
-									c.weightx=1.;
-								    c.fill=GridBagConstraints.HORIZONTAL;
-									JLabel fromAirport = new JLabel(possflightsTable.getValueAt(possflightsTable.getSelectedRow(),2).toString());
-									bPanel.add(fromAirport,c);
-									
-									c.gridx = 0;
-									c.gridy = 1;
-									c.weightx=1.;
-								    c.fill=GridBagConstraints.HORIZONTAL;
-									JLabel toLabel = new JLabel("To:");
-									bPanel.add(toLabel,c);
-									
-									c.gridx = 1;
-									c.gridy = 1;
-									c.weightx=1.;
-								    c.fill=GridBagConstraints.HORIZONTAL;
-									JLabel toAirport = new JLabel(possflightsTable.getValueAt(possflightsTable.getSelectedRow(),4).toString());
-									bPanel.add(toAirport,c);
-									
-									bFrame.add(bPanel);
-									bFrame.pack();
-									bFrame.setLocationRelativeTo(null);
-									bFrame.setVisible(true);
-									System.out.println(possflightsTable.getValueAt(possflightsTable.getSelectedRow(),0).toString());
 								}
 							});
 							frame.pack();

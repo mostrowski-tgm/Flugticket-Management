@@ -134,6 +134,11 @@ public void actionPerformed(ActionEvent arg0) {
 	if(hostnameInput.getText().equals("localhost")){
 		properties.setProperty("hostname", "127.0.0.1");
 	}
+	
+	if(userInput.getText() == null || passwordInput.getText() == null || databasenameInput.getText() == null){
+		JOptionPane.showMessageDialog(null, "Ungültige Eingabe!");
+		readyToSubmit = false;
+	}
 	if(readyToSubmit){
 		properties.setProperty("user", userInput.getText());
 		properties.setProperty("password", passwordInput.getText());

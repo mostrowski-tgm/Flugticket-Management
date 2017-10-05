@@ -45,7 +45,7 @@ public class FlightWindow implements ActionListener{
 	private static BookingWindow bw;
 	
 	private static DatabaseWindow dw;
-	static DatabaseConnection dc;
+	private static DatabaseConnection dc;
 	/**
 	 * Erstellt das GUI, hat ein Gridlayout
 	 */

@@ -232,11 +232,10 @@ public class BookingWindow implements ActionListener{
 		lastNameValue = lastNameInput.getText();
 		reiheValue = reiheInput.getText();
 		sitzeValue = sitzeInput.getText();
-		if(nameValue != null || lastNameValue != null|| reiheValue != null|| sitzeValue != null|| flightnrValue != null|| airlineValue != null)
 		try{
-			FlightWindow.dc.addPassenger(nameValue, lastNameValue, reiheValue, sitzeValue, airlineValue, flightnrValue);
-		}catch(Exception exc){
-			exc.printStackTrace();
+			
+		}catch(Exception e){
+			
 		}
 	}
 }

@@ -25,12 +25,10 @@ public class BookingWindow implements ActionListener{
 	private static String sitzeValue;
 	private static String flightnrValue;
 	private static String airlineValue;
-	private static String planetypValue;
 
 	public BookingWindow(String fromAirport, String toAirport, String depTime, String destTime, String airline, String planetyp, String flightnr){
 		flightnrValue = flightnr;
 		airlineValue = airline;
-		planetypValue = planetyp;
 		
 		JFrame bFrame = new JFrame("Booking");
 		bFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -234,7 +232,7 @@ public class BookingWindow implements ActionListener{
 		sitzeValue = sitzeInput.getText();
 		if(nameValue != null || lastNameValue != null|| reiheValue != null|| sitzeValue != null|| flightnrValue != null|| airlineValue != null)
 		try{
-			FlightWindow.dc.addPassenger(nameValue, lastNameValue, reiheValue, sitzeValue, airlineValue, flightnrValue);
+			
 		}catch(Exception exc){
 			exc.printStackTrace();
 		}

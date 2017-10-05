@@ -2,7 +2,6 @@ package mvu;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -154,22 +153,17 @@ public class DatabaseConnection {
 		return null;
 	}
 	
-	public void addPassenger(String name,String lastname, String row, String seat, String airline, String flightnr){
+	public void addPassenger(){
 		try{
 			connection = ds.getConnection();
 			Statement st = connection.createStatement();
 			ResultSet rs = st.executeQuery("SELECT max(id) FROM passengers;");
 			
-			int freeID = rs.getInt(1)+1;
-			System.out.println(freeID);
+			int freeId = rs.getInt(1)+1;
 			rs.close(); st.close();
 			
-			PreparedStatement statment = connection.prepareStatement("INSERT INTO passengers VALUES(`"+freeID+"`,`"+name+"`,`"+lastname+"`,`"+airline+"`,`"+flightnr+"`,`"+row+"`,`"+seat+"`) VALUES");
-			statment.execute();
-			
-			JOptionPane.showMessageDialog(null, "Erfolgreich gebucht!");
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, "Es konnte nicht gebucht werden!");
+			JOptionPane.showMessageDialog(null, "Connection konnte nicht mit der Database aufgebaut werden!");
 		}
 	}
 	

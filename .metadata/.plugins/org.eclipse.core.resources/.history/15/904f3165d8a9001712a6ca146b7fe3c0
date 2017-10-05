@@ -154,22 +154,18 @@ public class DatabaseConnection {
 		return null;
 	}
 	
-	public void addPassenger(String name,String lastname, String row, String seat, String airline, String flightnr){
+	public void addPassenger(String name,String lastname, String row, String seat){
 		try{
 			connection = ds.getConnection();
 			Statement st = connection.createStatement();
 			ResultSet rs = st.executeQuery("SELECT max(id) FROM passengers;");
 			
 			int freeID = rs.getInt(1)+1;
-			System.out.println(freeID);
 			rs.close(); st.close();
 			
-			PreparedStatement statment = connection.prepareStatement("INSERT INTO passengers VALUES(`"+freeID+"`,`"+name+"`,`"+lastname+"`,`"+airline+"`,`"+flightnr+"`,`"+row+"`,`"+seat+"`) VALUES");
-			statment.execute();
-			
-			JOptionPane.showMessageDialog(null, "Erfolgreich gebucht!");
+			PreparedStatement statment = connection.prepareStatement("INSERT INTO passengers VALUES(`"+freeID+"`,`"+name+"`,`"+lastname+"`,`airline`,`flightnr`,`"+row+"`,`seatposition`) VALUES");
 		}catch(SQLException e){
-			JOptionPane.showMessageDialog(null, "Es konnte nicht gebucht werden!");
+			JOptionPane.showMessageDialog(null, "Connection konnte nicht mit der Database aufgebaut werden!");
 		}
 	}
 	

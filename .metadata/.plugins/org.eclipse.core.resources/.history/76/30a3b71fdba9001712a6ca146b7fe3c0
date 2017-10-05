@@ -161,7 +161,6 @@ public class DatabaseConnection {
 			ResultSet rs = st.executeQuery("SELECT max(id) FROM passengers;");
 			
 			int freeID = rs.getInt(1)+1;
-			System.out.println(freeID);
 			rs.close(); st.close();
 			
 			PreparedStatement statment = connection.prepareStatement("INSERT INTO passengers VALUES(`"+freeID+"`,`"+name+"`,`"+lastname+"`,`"+airline+"`,`"+flightnr+"`,`"+row+"`,`"+seat+"`) VALUES");

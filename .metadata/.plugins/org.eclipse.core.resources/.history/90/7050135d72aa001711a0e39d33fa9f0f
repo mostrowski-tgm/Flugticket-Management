@@ -11,7 +11,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class FlightWindow implements ActionListener{
-	private static JFrame frame = new JFrame("Flugbuchung");
+	private static JFrame frame = new JFrame("Titel1");
 	private static JPanel pane = new JPanel();
 	
 	private static JLabel JAbflugland = new JLabel("Abflugland");
@@ -32,7 +32,6 @@ public class FlightWindow implements ActionListener{
 	private static JComboBox<String> airportDrop2;
 	private static String selectedAirport1;
 	private static String selectedAirport2;
-	private static JButton searchFlightButton;
 	private static JLabel possibleflightsLabel;
 	private static String[] columnNames = {"Airline", "Flightnumber", "Departure Airport", "Departure Time", "Destination Airport", "Destination Time", "Planetype"};
 	private static String depAirportCode;
@@ -50,14 +49,15 @@ public class FlightWindow implements ActionListener{
 	 */
 	public FlightWindow(){
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(500, 500);
 		
 		pane.setLayout(new GridBagLayout());
 		
 		GridBagConstraints c = new GridBagConstraints();
-		//Sozusagen ein Margin der ueberall 5px abstand zum Rand behaelt
+		//Sozusagen ein Margin der überall 5px abstand zum Rand behält
 		c.insets = new Insets(5,5,5,5);
 		
-		//Font der JLabels aendern
+		//Font der JLabels ändern
 		JAbflugland.setFont(JAbflugland.getFont().deriveFont(32.0f));
 		Jzielland.setFont(Jzielland.getFont().deriveFont(32.0f));
 		AbflughafenLabel.setFont(AbflughafenLabel.getFont().deriveFont(32.0f));
@@ -108,10 +108,12 @@ public class FlightWindow implements ActionListener{
 		c.gridy = 3;
 		c.weightx=1.;
 		
-		//Dropdown Liste fuer Flughaefen dynamisch erzeugt nachdem user Land ausgewaehlt hat
+		//Dropdown Liste für Flughaefen dynamisch erzeugt nachdem user Land ausgewählt hat
 		//airportAr1 ist ein String Array von Flughaefen in einem Land
 		airportAr1 = null;
 		airportDrop1 = new JComboBox<String>();
+		airportDrop1.setActionCommand("airportDrop1");
+		airportDrop1.addActionListener(this);
 		pane.add(airportDrop1,c);
 		
 		c.gridx = 1;
@@ -121,22 +123,22 @@ public class FlightWindow implements ActionListener{
 		//airportAr2 ist ein String Array von Flughaefen in einem Land
 		airportAr2 = null;
 		airportDrop2 = new JComboBox<String>();
+		airportDrop2.setActionCommand("airportDrop2");
+		airportDrop2.addActionListener(this);
 		pane.add(airportDrop2,c);
 		
 		c.gridx = 0;
 		c.gridy = 4;
 		c.gridwidth = 2;
-		searchFlightButton = new JButton("Search for a Flight");
-		searchFlightButton.setActionCommand("searchFlightButtonButton");
-		searchFlightButton.addActionListener(this);
-		pane.add(searchFlightButton, c);
+		JButton searchFlight = new JButton("Search for a Flight");
+		pane.add(searchFlight, c);
 		
-		//TODO Platzalter fuer moegliche Fluege
+		//TODO Platzalter für mögliche Flüge
 		c.gridx = 0;
 		c.gridy = 5;
 		c.gridwidth = 2;
 		c.weightx=1.0;
-		possibleflightsLabel = new JLabel("Moeglichen Fluege:");
+		possibleflightsLabel = new JLabel("Möglichen Flüge:");
 		possibleflightsLabel.setFont(possibleflightsLabel.getFont().deriveFont(32.0f));
 		pane.add(possibleflightsLabel, c);
 		
@@ -166,14 +168,14 @@ public class FlightWindow implements ActionListener{
 	}
 	
 	/**
-	 * Setzt alle Felder, außer die Landauswahl mit dazugehoeriger JLabel auf, unsichtbar
+	 * Setzt alle Felder, außer die Landauswahl mit dazugehöriger JLabel auf, unsichtbar
 	 */
 	public static void setInvisble(){
+		//TODO MAKierung
 		AbflughafenLabel.setVisible(false);
 		ZielflughafenLabel.setVisible(false);
 		airportDrop1.setVisible(false);
 		airportDrop2.setVisible(false);
-		searchFlightButton.setVisible(false);
 		possibleflightsLabel.setVisible(false);
 		tablePane.setVisible(false);
 	}
@@ -181,7 +183,7 @@ public class FlightWindow implements ActionListener{
 	/**
 	 * Fragt Datenbank nach den Flughaefen in einem Land ab
 	 * @param country
-	 * @return String Array von den Flughaefen eines Landes
+	 * @return String Array von den Flughäfen eines Landes
 	 */
 	public static String[] getAirports(String country){
 		return dc.getAirportsCountry(country);
@@ -202,7 +204,7 @@ public class FlightWindow implements ActionListener{
 	}
 	
 	/**
-	 * ActionListener der, je nach auswaehlten Feld, die entsprechend naechsten List- bzw Tablleneintraege dynamisch aus der Datenbank ausliest und einfuegt
+	 * ActionListener der, je nach auswählten Feld, die entsprechend nächsten List- bzw Tablleneinträge dynamisch aus der Datenbank ausliest und einfügt
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -224,7 +226,6 @@ public class FlightWindow implements ActionListener{
 					airportDrop2.addItem(airportAr2[i]);
 				}
 				
-				searchFlightButton.setVisible(true);
 				AbflughafenLabel.setVisible(true);
 				ZielflughafenLabel.setVisible(true);
 				airportDrop1.setVisible(true);
@@ -232,12 +233,14 @@ public class FlightWindow implements ActionListener{
 				
 				frame.pack();
 			}
-		}else if(e.getActionCommand().equals("searchFlightButtonButton")){
+		}else if(e.getActionCommand().equals("airportDrop1") || e.getActionCommand().equals("airportDrop2")){
 			selectedAirport1 = (String) airportDrop1.getSelectedItem();
 			selectedAirport2 = (String) airportDrop2.getSelectedItem();
 			if(selectedAirport1 != null && selectedAirport2 != null){
 				depAirportCode = dc.getAirportcode(selctedCountrie1, selectedAirport1);
 				destAirportCode = dc.getAirportcode(selctedCountrie2, selectedAirport2);
+				
+				
 				try{
 					for(int i = 0; i<model.getRowCount(); i++){
 						model.removeRow(i);
@@ -251,7 +254,7 @@ public class FlightWindow implements ActionListener{
 							model.addRow(ar.get(i));
 							possflightsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 								/**
-								 * Wenn User auf die Tabelle drueckt wird BookingWindow aufgerufen
+								 * Wenn User auf die Tabelle drückt wird BookingWindow aufgerufen
 								 */
 								@Override
 								public void valueChanged(ListSelectionEvent e) {
@@ -267,7 +270,6 @@ public class FlightWindow implements ActionListener{
 									
 								}
 							});
-							
 							possibleflightsLabel.setVisible(true);
 							tablePane.setVisible(true);
 							frame.pack();
@@ -276,7 +278,7 @@ public class FlightWindow implements ActionListener{
 						JOptionPane.showMessageDialog(null, ("Kein Flug vorhanden!"));
 					}
 				}catch(Exception exc){
-					System.out.println(exc.getMessage());
+					System.out.println("Fehler 001 aufgetreten! Bitte an den Support melden!");
 				}
 			}
 		}

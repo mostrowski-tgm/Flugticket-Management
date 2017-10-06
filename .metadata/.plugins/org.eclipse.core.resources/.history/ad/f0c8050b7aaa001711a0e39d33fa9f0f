@@ -122,7 +122,7 @@ public class DatabaseConnection {
 	 * Bekommt alle Fluege die von einem Flughafen zum anderne Flughafen fliegen
 	 * @param depAirport
 	 * @param destAirport
-	 * @return Returnt ArrayList die gefuellt ist mit Object[]. Die Object[] beinhalten 6 Einträge in der Reihenfolge: Airline, Flugnummer, Abflugflughafen, Abflugzeit, Ankunftsflughafen,  Ankunftszeit und den Flugzeugtyp
+	 * @return Returnt ArrayList die gefuellt ist mit Object[]. Die Object[] beinhalten 6 Einträge: Airline, Flugnummer, Abflugflughafen, Abflugzeit, Ankunftsflughafen,  Ankunftszeit und den Flugzeugtyp
 	 */
 	public ArrayList getFlights(String depAirport, String destAirport){
 		try{

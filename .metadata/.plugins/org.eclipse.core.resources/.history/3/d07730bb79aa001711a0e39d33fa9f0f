@@ -146,7 +146,7 @@ public void actionPerformed(ActionEvent arg0) {
 		properties.setProperty("password", passwordInput.getText());
 		properties.setProperty("databasename", databasenameInput.getText());
 	}
-	
+	//TODO Sysout löschen
 	frame.dispose();
 	FlightWindow.connectToDatabase(getProperties().getProperty("hostname"),getProperties().getProperty("port"),getProperties().getProperty("user"),getProperties().getProperty("password"),getProperties().getProperty("databasename"));
 	

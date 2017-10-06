@@ -50,6 +50,7 @@ public class FlightWindow implements ActionListener{
 	 */
 	public FlightWindow(){
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(500, 500);
 		
 		pane.setLayout(new GridBagLayout());
 		

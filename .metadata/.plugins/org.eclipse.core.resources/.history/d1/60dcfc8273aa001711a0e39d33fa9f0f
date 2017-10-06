@@ -11,7 +11,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class FlightWindow implements ActionListener{
-	private static JFrame frame = new JFrame("Flugbuchung");
+	private static JFrame frame = new JFrame("Titel1");
 	private static JPanel pane = new JPanel();
 	
 	private static JLabel JAbflugland = new JLabel("Abflugland");
@@ -50,6 +50,7 @@ public class FlightWindow implements ActionListener{
 	 */
 	public FlightWindow(){
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(500, 500);
 		
 		pane.setLayout(new GridBagLayout());
 		
@@ -224,7 +225,6 @@ public class FlightWindow implements ActionListener{
 					airportDrop2.addItem(airportAr2[i]);
 				}
 				
-				searchFlightButton.setVisible(true);
 				AbflughafenLabel.setVisible(true);
 				ZielflughafenLabel.setVisible(true);
 				airportDrop1.setVisible(true);
@@ -268,6 +268,7 @@ public class FlightWindow implements ActionListener{
 								}
 							});
 							
+							searchFlightButton.setVisible(true);
 							possibleflightsLabel.setVisible(true);
 							tablePane.setVisible(true);
 							frame.pack();
@@ -276,7 +277,7 @@ public class FlightWindow implements ActionListener{
 						JOptionPane.showMessageDialog(null, ("Kein Flug vorhanden!"));
 					}
 				}catch(Exception exc){
-					System.out.println(exc.getMessage());
+					System.out.println("Fehler 001 aufgetreten! Bitte an den Support melden!");
 				}
 			}
 		}

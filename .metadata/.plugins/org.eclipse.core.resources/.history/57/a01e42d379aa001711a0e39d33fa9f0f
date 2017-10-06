@@ -11,7 +11,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class FlightWindow implements ActionListener{
-	private static JFrame frame = new JFrame("Flugbuchung");
+	private static JFrame frame = new JFrame("Titel1");
 	private static JPanel pane = new JPanel();
 	
 	private static JLabel JAbflugland = new JLabel("Abflugland");
@@ -50,6 +50,7 @@ public class FlightWindow implements ActionListener{
 	 */
 	public FlightWindow(){
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(500, 500);
 		
 		pane.setLayout(new GridBagLayout());
 		
